@@ -73,67 +73,54 @@ class binarytree:
 
     def bfs_traversal(self, root=node):
         #0 sets the max queue length to inf
-        queue = q.queue([root],0)
+        queue = q.queue([],0)
         queue.enqueue(root)
-        #TODO: CHANGE THE 9
         visited = []
 
         #while 
         while not queue.isEmpty():
             currentNode = queue.dequeue()
+            visited.append(currentNode.data)
 
             if currentNode.left:
                 queue.enqueue(currentNode.left)
 
             if currentNode.right:
                 queue.enqueue(currentNode.right)
-            '''
-            print(visited)
-            s = queue.front(value=True)
-
-            if s.left:
-                if not visited[s.left.data]:
-                    queue.enqueue(s.left)
-                    visited[s.left.data] = True
-
-            if s.right:
-                if not visited[s.right.data]:
-                    queue.enqueue(s.right)
-                    visited[s.right.data] = True
-            '''
-
             
         return visited
 
 
-    def print_tree(self, root, level):
+    def basic_print_tree(self, root, level):
         if root is not None:
-            self.print_tree(root.right, level + 1)
+            self.basic_print_tree(root.right, level + 1)
             print(level, str(root.data))
-            self.print_tree(root.left, level + 1)
+            self.basic_print_tree(root.left, level + 1)
                     
 
 
-#nums list to fill the tree with
-nums = [2, 3, 4, 5, 6, 1, 7]
-#sorting it
-#nums = sorted(nums)
+if __name__ == "__main__":
+    #nums list to fill the tree with
+    nums = [2, 3, 4, 5, 6, 1, 7]
+    #sorting it
+    #nums = sorted(nums)
 
-#this is the middle of the list (rounded down)
-mid = int(len(nums) // 2)
+    #this is the middle of the list (rounded down)
+    mid = int(len(nums) // 2)
 
-#setting the root (which is the middle)
-root = node(nums[mid])
-#removing what we set as the root so we don't have a duplicate root
-nums.pop(mid)
+    #setting the root (which is the middle)
+    root = node(nums[mid])
+    #removing what we set as the root so we don't have a duplicate root
+    nums.pop(mid)
 
-#our main class to do everything out of, so it's nice and organized
-bt = binarytree(root)
+    #our main class to do everything out of, so it's nice and organized
+    bt = binarytree(root)
 
-bt.fill_tree(root, nums)
-bt.insert(root, node(8))
+    bt.fill_tree(root, nums)
+    bt.insert(root, node(8))
 
-print(bt.bfs_traversal(bt.root))
+    print(bt.bfs_traversal(bt.root))
+    bt.basic_print_tree(bt.root,0)
 
 
 

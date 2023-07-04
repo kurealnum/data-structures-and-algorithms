@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "./ByDataStructure/linked_lists"
+    ]
+}

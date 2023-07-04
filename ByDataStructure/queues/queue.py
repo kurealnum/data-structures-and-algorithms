@@ -54,7 +54,7 @@ class queue():
             return None
         
         #-1 is because the length returns the length of a 1 indexed array
-        return self.queue_array.pop_item(length[1])
+        return self.queue_array.pop_item(length[1]-1)
          
 
     #returns the object at the front of the queue(the head), return 
