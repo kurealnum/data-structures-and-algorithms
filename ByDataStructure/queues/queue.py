@@ -1,11 +1,9 @@
 #NOTE: you don't *have* to use a Llist for queues (technically speaking)
 #importing my linked list file
 #when you print/interact with the queue, the newest/value closest to the end is the leftmost value
-import sys
-sys.path.append('C:\Code\Python\Data Structures')
 
 #imports
-import singlylinkedlist as ll
+import linked_lists.singlylinkedlist as ll
 llist = ll.linked_list()
 
 #the head and end of the list should always be null
@@ -61,8 +59,9 @@ def rear():
     return llist.find_item(llist.len_of_llist()[1]-1)
 
 
-for i in reversed(range(5)):
-    enqueue(i)
-    dequeue()
+if __name__ == "__main__":
+    for i in reversed(range(5)):
+        enqueue(i)
+        dequeue()
 
-llist.printList()
+    llist.printList()

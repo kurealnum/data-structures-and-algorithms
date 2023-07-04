@@ -1,3 +1,7 @@
+import queues.queue
+import linked_lists.singlylinkedlist as ll
+
+#contains different types of trees, such as a complete binary tree, a perfect binary tree, etc.
 class node:
 
     #nodes have their data and an optional lower right and left 
@@ -10,11 +14,18 @@ class node:
         
 class binarytree:
 
-    #there's not really any algorithm to this, it's just throwing each value in there
+    def __init__(self, root) -> None:
+        self.root = root
+        #level info is for printing
+        self.level_info = {}
+
+    #a completely binary tree is a full binary tree, 
+    #but all leaf elements must lean towards the left, 
+    #and the last leaf element might not have a right sibling
+    #(i.e. a complete binary tree doesn't have to be a full binary tree)
     def fill_tree(self, root, list=list):
         #loop through the list
         for i in list:
-            #on each iteration, run the insert command
             self.insert(root, node(i))
 
 
@@ -22,8 +33,8 @@ class binarytree:
         #if the root is none, just set the node to the root
 
         #maybe check the actual root, not the arg
-        if root is None:
-            root = node
+        if self.root is None:
+            self.root = node
 
         #if it isn't (it won't be most times of course)
         else:
@@ -48,22 +59,32 @@ class binarytree:
                 #argument set as the left node that we're currently on
                 else: 
                     self.insert(root.left, node)
-            
+
+            #if the root is equal to the current node
             else:
+                #worst comes to worst, we just put it in the left node
                 if root.left is None:
                     root.left = node
+
+                #if there is something in the left node, go check that out
                 else:
                     self.insert(root.left, node)
 
+
+    def bfs_traversal(self):
+        llist = ll.linked_list()
+        
+        queue = []
+        visited = []
 
 
     def print_tree(self, root, level):
         if root is not None:
             self.print_tree(root.right, level + 1)
-            print(' ' * level + str(root.data))
+            print(level, str(root.data))
             self.print_tree(root.left, level + 1)
                     
-        
+
 
 #nums list to fill the tree with
 nums = [2, 3, 4, 5, 6, 1, 7]
@@ -80,13 +101,13 @@ print(f'Root: {root.data}')
 nums.pop(mid)
 
 #our main class to do everything out of, so it's nice and organized
-bt = binarytree()
+bt = binarytree(root)
 
 bt.fill_tree(root, nums)
 bt.insert(root, node(8))
 bt.print_tree(root, 0)
 
-#note to self: leaving this for a while until i get a tutor/someone that can help me on stuff like this
+
 
 
 
