@@ -1,7 +1,6 @@
 #NOTE: you don't *have* to use a Llist for stacks (technically speaking)
 
 #importing my linked list file
-#imports
 import linked_lists.singlylinkedlist as ll
 
 #just to start something off
@@ -10,6 +9,7 @@ stack = [1, 2, 3, 4, 5]
 class stack():
 
     def __init__(self, stack) -> None:
+        #filling up the stack
         self.stack_array = ll.linked_list()
         self.stack_array.fill_llist(stack)
 

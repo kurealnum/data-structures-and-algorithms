@@ -4,64 +4,73 @@
 
 #imports
 import linked_lists.singlylinkedlist as ll
-llist = ll.linked_list()
 
 #the head and end of the list should always be null
 MAX_LENGTH = 10
-queue = [1, 2, 3, 4, 5]
-llist.fill_llist(queue)
+input_queue = [1, 2, 3, 4, 5]
+
+class queue():
+
+    def __init__(self, input_queue, max_length) -> None:
+        self.max_length = max_length
+
+        #filling up the queue
+        self.queue_array = ll.linked_list()
+        self.queue_array.fill_llist(input_queue)
 
 
-#returns true if the queue is full
-def isFull():
-    length = llist.len_of_llist()
-    if length[1] + 1 > MAX_LENGTH:
-        return True
-    
-    return False
-    
-
-#returns true if the queue is empty
-def isEmpty():
-    length = llist.len_of_llist()
-    if length[1] == 0:
-        return True
-
-    return False
-
-
-#returns false if the queue is full, returns nothing if it works
-def enqueue(value):
-    length = llist.len_of_llist()
-    if isFull():
+    #returns true if the queue is full
+    def isFull(self):
+        length = self.queue_array.len_of_llist()
+        if length[1] + 1 > MAX_LENGTH:
+            return True
+        
         return False
-    
-    llist.insert_item_head(ll.node(value))
 
 
-#returns false if the queue is empty, nothing if it works
-def dequeue():
-    length = llist.len_of_llist()
-    if isEmpty():
+    #returns true if the queue is empty
+    def isEmpty(self):
+        length = self.queue_array.len_of_llist()
+        if length[1] == 0:
+            return True
+
         return False
+
+
+    #returns false if the queue is full, returns nothing if it works
+    def enqueue(self, value):
+        if self.isFull():
+            return False
+        
+        self.queue_array.insert_item_head(ll.node(value))
+
+
+    #returns false if the queue is empty, nothing if it works
+    def dequeue(self):
+        length = self.queue_array.len_of_llist()
+        if self.isEmpty():
+            return False
+        
+        #-1 is because the length returns the length of a 1 indexed array
+        self.queue_array.remove_item(length[1]-1)
+        
+
+    #returns the object at the front of the queue(the head)
+    def front(self):
+        return self.queue_array.head.value
+
+
+    #returns the object at the end of the queue
+    def rear(self):
+        return self.queue_array.find_item(self.queue_array.len_of_llist()[1]-1)
     
-    #i forget why i have to do the "-1" lol
-    llist.remove_item(length[1]-1)
-    
 
-#returns the object at the front of the queue(the head)
-def front():
-    return llist.head.value
-
-
-#returns the object at the end of the queue
-def rear():
-    return llist.find_item(llist.len_of_llist()[1]-1)
+    def print_queue(self):
+        self.queue_array.printList()
 
 
 if __name__ == "__main__":
-    for i in reversed(range(5)):
-        enqueue(i)
-        dequeue()
+    queue_1 = queue(input_queue, MAX_LENGTH)
+    queue_1.print_queue()
 
-    llist.printList()
+
