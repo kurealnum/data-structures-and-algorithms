@@ -1,43 +1,3 @@
-'''
-def merge(C,D):
-    #return array
-    B = []
-
-    i = 0
-    j = 0
-    for k in range(len(C+D)):
-        print(B)
-        if C[i] < D[j]: 
-            B[k].append(C[i])
-            i += 1
-
-        else: #else D[j] < C[i]
-            B[k].append(C[j])
-            j += 1
-
-    return B
-
-
-def sort(arr):
-    print(arr)
-    if len(arr) == 1:
-        return arr
-    
-    elif len(arr) == 2:
-        if arr[1] < arr[0]:
-            temp = arr[1]
-            arr[1] = arr[0]
-            arr[0] = temp
-
-    return sort(arr)
-
-
-arr = [2,5,3,6,1,4,8,7]
-C = sort(arr[len(arr)//2:])
-D = sort(arr[:len(arr)//2])
-merge(C,D)
-'''
-
 def mergeSort(arr):
     arr_len = len(arr)
 
@@ -48,6 +8,8 @@ def mergeSort(arr):
         #recursion
         mergeSort(left_arr)
         mergeSort(right_arr)
+
+        print(mergeSort(left_arr),mergeSort(right_arr))
 
         #merge
         i = j = k = 0
@@ -75,7 +37,7 @@ def mergeSort(arr):
         return arr
 
 
-
 arr = [2,5,3,6,1,4,8,7]
 
-print(mergeSort(arr))
+arr = mergeSort(arr)
+print(arr)
