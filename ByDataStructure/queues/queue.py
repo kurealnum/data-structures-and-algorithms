@@ -4,19 +4,25 @@
 
 #imports
 import linked_lists.singlylinkedlist as ll
+from math import inf
 
 #the head and end of the list should always be null
-MAX_LENGTH = 10
+MAX_LENGTH = 0
 input_queue = [1, 2, 3, 4, 5]
 
 class queue():
 
     def __init__(self, input_queue, max_length) -> None:
         self.max_length = max_length
+        if self.max_length == 0:
+            self.max_length = inf
 
         #filling up the queue
         self.queue_array = ll.linked_list()
-        self.queue_array.fill_llist(input_queue)
+
+        #only fill if theres anything in there
+        if len(input_queue) > 0:
+            self.queue_array.fill_llist(input_queue)
 
 
     #returns true if the queue is full
@@ -49,11 +55,11 @@ class queue():
     def dequeue(self):
         length = self.queue_array.len_of_llist()
         if self.isEmpty():
-            return False
+            return None
         
         #-1 is because the length returns the length of a 1 indexed array
-        self.queue_array.remove_item(length[1]-1)
-        
+        return self.queue_array.pop_item(length[1])
+         
 
     #returns the object at the front of the queue(the head)
     def front(self):
@@ -71,6 +77,8 @@ class queue():
 
 if __name__ == "__main__":
     queue_1 = queue(input_queue, MAX_LENGTH)
+    queue_1.print_queue()
+    print(queue_1.dequeue())
     queue_1.print_queue()
 
 

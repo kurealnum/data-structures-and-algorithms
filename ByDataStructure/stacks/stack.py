@@ -20,7 +20,7 @@ class stack():
 
     #pop an item on top of the stack
     def pop_stack(self):
-        self.stack_array.remove_item(0)
+        self.stack_array.pop_item(0)
 
 
     #returns the top of the stack

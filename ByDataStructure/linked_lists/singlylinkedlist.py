@@ -19,6 +19,7 @@ class linked_list:
         while node:
             count += 1
             node = node.next
+            
         while (temp):
             # If it's not the last node, print the arrow
             if count > 1:
@@ -133,7 +134,7 @@ class linked_list:
 
 
     #takes an int OR a string as an argument (i.e. deletes item either by iterator or name)
-    def remove_item(self, position):
+    def pop_item(self, position):
         count = 0
         current = self.head
         previous = None
@@ -142,18 +143,19 @@ class linked_list:
         while current:
             if count == position or current.value == position:
                 if previous:
-                    previous.next = current.next
+                    previous.next = current.next         
                 else: 
                     self.head = current.next
                     
-                return
+                #the removed node
+                return current.value
            
             previous = current
             current = current.next
             count += 1
 
-        print(f"Out of index/couldn't find variable to delete: {position}")
-
+        return False
+    
 
     #takes no args, just returns a set (True/False, and the length of the linked list)
     def len_of_llist(self):

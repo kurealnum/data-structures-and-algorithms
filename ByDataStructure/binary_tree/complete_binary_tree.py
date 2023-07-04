@@ -1,4 +1,4 @@
-import queues.queue
+import queues.queue as q
 import linked_lists.singlylinkedlist as ll
 
 #contains different types of trees, such as a complete binary tree, a perfect binary tree, etc.
@@ -71,11 +71,25 @@ class binarytree:
                     self.insert(root.left, node)
 
 
-    def bfs_traversal(self):
-        llist = ll.linked_list()
-        
-        queue = []
+    def bfs_traversal(self, root=node):
+        #0 sets the max queue length to inf
+        queue = q.queue([],0)
         visited = []
+
+        while root:
+            visited.append(root.data)
+
+            if root.left is not None:
+                queue.enqueue(root.left)
+
+            if root.right is not None:
+                queue.enqueue(root.right)
+
+            root = queue.front()
+            queue.dequeue()
+            
+        
+        return visited
 
 
     def print_tree(self, root, level):
@@ -105,7 +119,8 @@ bt = binarytree(root)
 
 bt.fill_tree(root, nums)
 bt.insert(root, node(8))
-bt.print_tree(root, 0)
+
+print(bt.bfs_traversal(bt.root))
 
 
 
