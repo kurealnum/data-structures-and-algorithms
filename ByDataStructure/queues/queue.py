@@ -6,10 +6,6 @@
 import linked_lists.singlylinkedlist as ll
 from math import inf
 
-#the head and end of the list should always be null
-MAX_LENGTH = 0
-input_queue = [1, 2, 3, 4, 5]
-
 class queue():
 
     def __init__(self, input_queue, max_length) -> None:
@@ -17,7 +13,7 @@ class queue():
         if self.max_length == 0:
             self.max_length = inf
 
-        #filling up the queue
+        #creating the queue
         self.queue_array = ll.linked_list()
 
         #only fill if theres anything in there
@@ -25,7 +21,7 @@ class queue():
             self.queue_array.fill_llist(input_queue)
 
 
-    #returns true if the queue is full
+    #returns true if the queue is full, false if it isnt
     def isFull(self):
         length = self.queue_array.len_of_llist()
         if length[1] + 1 > self.max_length:
@@ -34,7 +30,7 @@ class queue():
         return False
 
 
-    #returns true if the queue is empty
+    #returns true if the queue is empty, false if it isnt
     def isEmpty(self):
         length = self.queue_array.len_of_llist()
         if length[1] == 0:
@@ -43,10 +39,10 @@ class queue():
         return False
 
 
-    #returns false if the queue is full, returns nothing if it works
+    #raises exception if the queue is full, returns nothing if it works
     def enqueue(self, value):
         if self.isFull():
-            return False
+            raise Exception("Error in queue.enqueue: Queue is full, no room to insert")
         
         self.queue_array.insert_item_head(ll.node(value))
 
@@ -61,24 +57,36 @@ class queue():
         return self.queue_array.pop_item(length[1])
          
 
-    #returns the object at the front of the queue(the head)
+    #returns the object at the front of the queue(the head), return 
+    #option for the value defaults to true
     def front(self, value):
+        #return the node with the value if true
         if value:
             return self.queue_array.head.value
         
         return self.queue_array.head
 
 
-    #returns the object at the end of the queue
-    def rear(self):
+    #returns the object at the end of the queue, return 
+    #option for the value defaults to true
+    def rear(self, value=True):
+        if value:
+            return self.queue_array.find_item(self.queue_array.len_of_llist()[1]-1).value
+        
+        #return the node with the value if true
         return self.queue_array.find_item(self.queue_array.len_of_llist()[1]-1)
     
 
+    #literally just prints the queue
     def print_queue(self):
         self.queue_array.printList()
 
 
 if __name__ == "__main__":
+    #input a 0 to set the maxlength of the queue to infinity
+    MAX_LENGTH = 0
+    input_queue = [1, 2, 3, 4, 5]
+
     queue_1 = queue(input_queue, MAX_LENGTH)
     queue_1.print_queue()
     print(queue_1.dequeue())

@@ -54,7 +54,7 @@ class linked_list:
             current = value
 
 
-    #takes a string as an arg, not a node
+    #takes a string as an arg, not a node. returns None if no item is found
     def find_item(self, find_val):
 
         count = 0
@@ -65,13 +65,13 @@ class linked_list:
         while current:
             #if the values are equivalent 
             if count == find_val or current.value == find_val:
-                return current.value
+                return current
             
             current = current.next
             count += 1
 
         else:
-            print(f'Couldn\'t find {find_val}') 
+            return None
 
 
     #takes a node as an argument
@@ -102,12 +102,10 @@ class linked_list:
             current = current.next
 
 
-    '''
-    inserts at the position (the iterator, technically)
-    takes a node and a STRING OR INT as args, not a node and a node
-    very similar to insert_item_by_name()
-    if you want to access the head, you NEED to use an iterator
-    '''
+    #inserts at the position (the iterator, technically)
+    #takes a node and a STRING OR INT as args, not a node and a node
+    #very similar to insert_item_by_name()
+    #if you want to access the head, you NEED to use an iterator
     def insert_item(self, value, position):
         if self.head is None:
             self.head = value
@@ -130,7 +128,7 @@ class linked_list:
             current = current.next
             count += 1
 
-        print(f"Out of index/couldn't find variable to insert after: {value.value}")
+        raise Exception(f"Error in linked_list.insert_item: Couldn't find variable to insert after: {value.value}")
 
 
     #takes an int OR a string as an argument (i.e. deletes item either by iterator or name)
@@ -155,7 +153,7 @@ class linked_list:
             count += 1
 
         #if all else fails
-        raise Exception("Error in linked_list.pop_item: Couldn't find item" +  str(position) + " to pop")
+        raise Exception(f"Error in linked_list.pop_item: Couldn't find item '{str(position)}' to pop")
     
 
     #takes no args, just returns a set (True/False, and the length of the linked list)

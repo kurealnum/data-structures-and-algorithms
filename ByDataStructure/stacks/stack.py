@@ -40,12 +40,10 @@ class stack():
     #returns the size of the stack
     def size_of_stack(self):
         data = self.stack_array.len_of_llist()
-        if data[0] == False:
-            return 0
-        
         return data[1]
     
     
+    #literally just prints the stack
     def print_stack(self):
         self.stack_array.printList()
 
