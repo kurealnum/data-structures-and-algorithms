@@ -28,7 +28,7 @@ class queue():
     #returns true if the queue is full
     def isFull(self):
         length = self.queue_array.len_of_llist()
-        if length[1] + 1 > MAX_LENGTH:
+        if length[1] + 1 > self.max_length:
             return True
         
         return False
@@ -62,8 +62,11 @@ class queue():
          
 
     #returns the object at the front of the queue(the head)
-    def front(self):
-        return self.queue_array.head.value
+    def front(self, value):
+        if value:
+            return self.queue_array.head.value
+        
+        return self.queue_array.head
 
 
     #returns the object at the end of the queue

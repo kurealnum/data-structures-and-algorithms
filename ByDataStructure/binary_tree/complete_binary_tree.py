@@ -73,22 +73,36 @@ class binarytree:
 
     def bfs_traversal(self, root=node):
         #0 sets the max queue length to inf
-        queue = q.queue([],0)
+        queue = q.queue([root],0)
+        queue.enqueue(root)
+        #TODO: CHANGE THE 9
         visited = []
 
-        while root:
-            visited.append(root.data)
+        #while 
+        while not queue.isEmpty():
+            currentNode = queue.dequeue()
 
-            if root.left is not None:
-                queue.enqueue(root.left)
+            if currentNode.left:
+                queue.enqueue(currentNode.left)
 
-            if root.right is not None:
-                queue.enqueue(root.right)
+            if currentNode.right:
+                queue.enqueue(currentNode.right)
+            '''
+            print(visited)
+            s = queue.front(value=True)
 
-            root = queue.front()
-            queue.dequeue()
+            if s.left:
+                if not visited[s.left.data]:
+                    queue.enqueue(s.left)
+                    visited[s.left.data] = True
+
+            if s.right:
+                if not visited[s.right.data]:
+                    queue.enqueue(s.right)
+                    visited[s.right.data] = True
+            '''
+
             
-        
         return visited
 
 
@@ -110,7 +124,6 @@ mid = int(len(nums) // 2)
 
 #setting the root (which is the middle)
 root = node(nums[mid])
-print(f'Root: {root.data}')
 #removing what we set as the root so we don't have a duplicate root
 nums.pop(mid)
 

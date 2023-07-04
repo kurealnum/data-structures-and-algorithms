@@ -19,7 +19,7 @@ class linked_list:
         while node:
             count += 1
             node = node.next
-            
+
         while (temp):
             # If it's not the last node, print the arrow
             if count > 1:
@@ -154,7 +154,8 @@ class linked_list:
             current = current.next
             count += 1
 
-        return False
+        #if all else fails
+        raise Exception("Error in linked_list.pop_item: Couldn't find item" +  str(position) + " to pop")
     
 
     #takes no args, just returns a set (True/False, and the length of the linked list)
