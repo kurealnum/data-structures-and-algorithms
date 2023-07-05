@@ -1,5 +1,5 @@
 import queues.queue as q
-import linked_lists.singlylinkedlist as ll
+from collections import defaultdict
 
 #contains different types of trees, such as a complete binary tree, a perfect binary tree, etc.
 class node:
@@ -16,8 +16,6 @@ class binarytree:
 
     def __init__(self, root) -> None:
         self.root = root
-        #level info is for printing
-        self.level_info = {}
 
     #a completely binary tree is a full binary tree, 
     #but all leaf elements must lean towards the left, 
@@ -75,28 +73,44 @@ class binarytree:
         #0 sets the max queue length to inf
         queue = q.queue([],0)
         queue.enqueue(root)
+        #visited (in order)
         visited = []
 
-        #while 
         while not queue.isEmpty():
+            #set current node as last element of q, pop last element of q
             currentNode = queue.dequeue()
             visited.append(currentNode.data)
 
+            #if this node isn't none
             if currentNode.left:
                 queue.enqueue(currentNode.left)
 
+            #if this node isn't none
             if currentNode.right:
                 queue.enqueue(currentNode.right)
             
         return visited
 
 
-    def basic_print_tree(self, root, level):
+    def print_tree(self):
+        #nodes in order from top to bottom, left to right (BFS)
+        nodes_in_order = self.bfs_traversal(self.root)
+
+        #nodes seperated into levels, not in order though
+        level_info = self.collect_level_info(self.root)
+        print(nodes_in_order, level_info)
+
+
+    def collect_level_info(self, root, level=0):
+        level_info = defaultdict(list)
+
         if root is not None:
-            self.basic_print_tree(root.right, level + 1)
-            print(level, str(root.data))
-            self.basic_print_tree(root.left, level + 1)
+            self.collect_level_info(root.right, level + 1)
+            level_info[level].append(root.data)
+            self.collect_level_info(root.left, level + 1)
                     
+        return level_info
+    
 
 
 if __name__ == "__main__":
@@ -120,7 +134,7 @@ if __name__ == "__main__":
     bt.insert(root, node(8))
 
     print(bt.bfs_traversal(bt.root))
-    bt.basic_print_tree(bt.root,0)
+    bt.print_tree()
 
 
 
