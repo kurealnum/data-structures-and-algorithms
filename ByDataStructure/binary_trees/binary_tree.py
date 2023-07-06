@@ -73,7 +73,7 @@ class binarytree:
                 #if there is something in the left node, go check that out
                 else:
                     self.insert(root.left, node)
-
+    
 
     def print_tree(self):
         #nodes seperated into levels, not in order though
@@ -90,6 +90,7 @@ class binarytree:
         print(level_info)
 
 
+    #function for print_tree()
     def collect_level_info(self, root, level_info=defaultdict(list), level=0):
         #traverse the tree in a way that we can count the levels
         if root is not None:
@@ -124,7 +125,8 @@ class binarytree:
         return visited
     
 
-    def pre_order_dfs_traversal(self, root, visited):
+    #visited contains the order that the nodes were traversed in
+    def pre_order_traversal(self, root, visited):
         if root:
             #"traverse" the root
             visited.append(root.data)
@@ -134,11 +136,86 @@ class binarytree:
             self.pre_order_dfs_traversal(root.right, visited)
 
 
+    def post_order_traversal(self, root, visited):
+        if root:
+            #traverse left
+            self.post_order_traversal(root.left, visited)
+            #traverse right
+            self.post_order_traversal(root.right, visited)
+            #"traverse" the root
+            visited.append(root.data)
+
+
+    def in_order_traversal(self, root, visited):
+        if root:
+            #traverse left
+            self.in_order_traversal(root.left,visited)
+            #"traverse" the root
+            visited.append(root.data)
+            #traverse right
+            self.in_order_traversal(root.right,visited)
+
+
+    #TBD stands for To Be Deleted
+    def delete_node(self, root, k):
+        #base case
+        if root is None:
+            return root
+    
+        #recursive calls for ancestors of
+        #node to be deleted
+        if root.data > k:
+            root.left = self.delete_node(root.left, k)
+            return root
+        elif root.data < k:
+            root.right = self.delete_node(root.right, k)
+            return root
+    
+        #we reach here when root is the node to be deleted.
+    
+        #if one of the children is empty
+        if root.left is None:
+            temp = root.right
+            del root
+            return temp
+        elif root.right is None:
+            temp = root.left
+            del root
+            return temp
+    
+        #if both children exist
+        else:
+    
+            succParent = root
+    
+            #find successor
+            succ = root.right
+            while succ.left is not None:
+                succParent = succ
+                succ = succ.left
+    
+            #Delete successor. Since successor is always left child of its parent 
+            #we can safely make successor's right right child as left of its parent. If 
+            #there is no succ, then assign succ.right to succParent.right
+            if succParent != root:
+                succParent.left = succ.right
+            else:
+                succParent.right = succ.right
+    
+            #copy Successor Data to root
+            root.data = succ.data
+    
+            #delete Successor and return root
+            del succ
+            return root
+
+
 
 if __name__ == "__main__":
     #init stuff-----------
     #nums list to fill the tree with
     nums = [2, 3, 4, 5, 6, 1, 7]
+    
 
     mid = int(len(nums) // 2)
 
@@ -149,13 +226,14 @@ if __name__ == "__main__":
     bt = binarytree(root)
 
     bt.fill_tree(root, nums)
-    bt.insert(root, node(8))
     #end of init stuff-----------
 
-    visited = []
-    bt.pre_order_dfs_traversal(bt.root, visited)
+    bt.print_tree()
+    bt.delete_node(bt.root, 2)
 
-    print(visited)
+    bt.print_tree()
+
+
 
 
 
