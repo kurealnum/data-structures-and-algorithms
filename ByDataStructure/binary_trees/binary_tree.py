@@ -2,16 +2,19 @@
 #This is the base file for binary trees. I wouldn't reccommend using it 
 #barebones, at least use something like binary_search_tree.py. 
 
-#binary_tree is (somewhat obviously) the most basic version of any
+#binaryTree is (somewhat obviously) the most basic version of any
 #tree in this folder, thus it's not super useful... it's really just
 #here as a composite pattern (at least I think that's what it's called)
+
+#All subclasses (binary_search_tree.py, etc.) will need (at least) an 
+#insert function and a delete function to work properly!
 #----------------------------------------------------------------------
 
-import queues.queue as q
+from queues.queue import Queue as q
 from collections import defaultdict
 
 #contains different types of trees, such as a complete binary tree, a perfect binary tree, etc.
-class node:
+class Node:
 
     #nodes have their key and an optional lower right and left 
     def __init__(self, key) -> None:
@@ -21,7 +24,7 @@ class node:
 
 
         
-class binary_tree:
+class BinaryTree:
 
     def __init__(self, root=None) -> None:
         self.root = root
@@ -31,7 +34,7 @@ class binary_tree:
     #2 methods of filling trees
     #------------------
 
-    #a completel binary tree is a full binary tree, 
+    #a complete binary tree is a full binary tree, 
     #but all leaf elements must lean towards the left, 
     #and the last leaf element might not have a right sibling
     #(i.e. a complete binary tree doesn't have to be a full binary tree)
@@ -40,7 +43,7 @@ class binary_tree:
         
         #loop through the list
         for i in list:
-            self.insert(root, node(i))
+            self.insert(root, Node(i))
 
 
     #takes a sorted array as input. use with caution, will partially 
@@ -54,7 +57,7 @@ class binary_tree:
 
         mid = len(arr) // 2
 
-        root = node(arr[mid])
+        root = Node(arr[mid])
 
         root.left = self.fill_balanced_tree(arr[:mid])
         root.right = self.fill_balanced_tree(arr[mid+1:])
@@ -160,32 +163,6 @@ class binary_tree:
     
     #------------------
 
-
-
-if __name__ == "__main__":
-    #init stuff-----------
-    #nums list to fill the tree with
-    nums = [1,2,3,4,5,6,7]
-    
-
-    mid = int(len(nums) // 2)
-
-    #setting the root (which is the middle)
-    root = node(nums[mid])
-    nums.pop(mid)
-
-    bt = binary_tree(root)
-    bt.fill_tree(bt.root,nums)
-    #end of init stuff-----------
-
-   
-    
-    nodes_in_order = [1,2,3,4,5,6,7]
-    bt.fill_balanced_tree(nodes_in_order)
-    bt.root = bt.fill_balanced_tree(nodes_in_order)
-
-    bt.print_tree()
-    print(bt.in_order_traversal(bt.root))
 
 
 

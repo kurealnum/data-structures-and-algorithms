@@ -1,20 +1,70 @@
-from binary_tree import node, binary_tree
+from binary_tree import Node, BinaryTree
 
 #inherits all properties from node
-class node(node):
+class Node(Node):
     pass
 
 
 
-#binary search trees are pretty much just binary trees, thus its smoooth inheritance
-class binary_search_tree(binary_tree):
+#binary search trees are pretty much just binary trees, thus its smooth inheritance
+class BinarySearchTree(BinaryTree):
     
+    #-----------------------
+    #Insert/delete functions
+    #-----------------------
+
+    #takes the root and a new node() object as input
+    def insert(self, root, node):
+        #if the root is none, just set the node to the root
+
+        #maybe check the actual root, not the arg
+        if self.root is None:
+            self.root = node
+
+        #if it isn't (it won't be most times of course)
+        else:
+            #if the root is smaller than the node, we go down the right side
+            if root.key < node.key:
+                #if there's nothing in the right node, put the node there
+                if root.right is None:
+                    root.right = node
+                    self.node_count += 1
+                
+                #if there is, go ahead and recursively call the function again,
+                #this time having the root set as the right node
+                else: 
+                    self.insert(root.right, node)
+
+            #if the root is bigger than the node, we go down the left side
+            elif root.key > node.key:
+                #if there's nothing in the left node, put the node there
+                if root.left is None:
+                    root.left = node
+                    self.node_count += 1
+
+                #if there is, recursively call the function again with the "root"
+                #argument set as the left node that we're currently on
+                else: 
+                    self.insert(root.left, node)
+
+            #if the root is equal to the current node
+            else:
+                #worst comes to worst, we just put it in the left node
+                if root.left is None:
+                    root.left = node
+                    self.node_count += 1
+
+                #if there is something in the left node, go check that out
+                else:
+                    self.insert(root.left, node)
+
+
     #TBD stands for To Be Deleted, takes tree root and new node *value* as input
     def delete_node(self, root, k):
         #base case
         if root is None:
             return root
-    
+
         #recursive calls for ancestors of
         #node to be deleted
         if root.key > k:
@@ -61,49 +111,29 @@ class binary_search_tree(binary_tree):
             return root
 
 
-    #takes the root and a new node() object as input
-    def insert(self, root, node):
-        #if the root is none, just set the node to the root
+if __name__ == "__main__":
+    #init stuff-----------
+    #nums list to fill the tree with
+    nums = [1,2,3,4,5,6,7]
+    
 
-        #maybe check the actual root, not the arg
-        if self.root is None:
-            self.root = node
+    mid = int(len(nums) // 2)
 
-        #if it isn't (it won't be most times of course)
-        else:
-            #if the root is smaller than the node, we go down the right side
-            if root.key < node.key:
-                #if there's nothing in the right node, put the node there
-                if root.right is None:
-                    root.right = node
-                    self.node_count += 1
-                
-                #if there is, go ahead and recursively call the function again,
-                #this time having the root set as the right node
-                else: 
-                    self.insert(root.right, node)
+    #setting the root (which is the middle)
+    root = Node(nums[mid])
+    nums.pop(mid)
 
-            #if the root is bigger than the node, we go down the left side
-            elif root.key > node.key:
-                #if there's nothing in the left node, put the node there
-                if root.left is None:
-                    root.left = node
-                    self.node_count += 1
+    bt = BinaryTree(root)
+    bt.fill_tree(bt.root,nums)
+    #end of init stuff-----------
 
-                #if there is, recursively call the function again with the "root"
-                #argument set as the left node that we're currently on
-                else: 
-                    self.insert(root.left, node)
+   
+    
+    nodes_in_order = [1,2,3,4,5,6,7]
+    bt.fill_balanced_tree(nodes_in_order)
+    bt.root = bt.fill_balanced_tree(nodes_in_order)
 
-            #if the root is equal to the current node
-            else:
-                #worst comes to worst, we just put it in the left node
-                if root.left is None:
-                    root.left = node
-                    self.node_count += 1
-
-                #if there is something in the left node, go check that out
-                else:
-                    self.insert(root.left, node)
+    bt.print_tree()
+    print(bt.in_order_traversal(bt.root))  
 
 

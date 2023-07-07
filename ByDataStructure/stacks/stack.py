@@ -4,12 +4,12 @@
 #-----------------------------------------------
 
 #importing my linked list file
-import linked_lists.singlylinkedlist as ll
+from linked_lists.singlylinkedlist import LinkedList as ll
 
 #just to start something off
 stack = [1, 2, 3, 4, 5]
 
-class stack():
+class Stack():
 
     def __init__(self, stack) -> None:
         #filling up the stack
@@ -60,8 +60,7 @@ class stack():
 
 
 if __name__ == "__main__":
-    stack = stack([1,2,3,4,5])
-    stack.print_stack()
+    pass
       
 
 

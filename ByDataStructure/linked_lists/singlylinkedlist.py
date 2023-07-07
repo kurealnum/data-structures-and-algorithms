@@ -9,7 +9,7 @@ class node:
         self.next = None
 
 
-class linked_list:
+class LinkedList:
     
     def __init__(self) -> None:
         self.head = None
@@ -189,7 +189,7 @@ class linked_list:
 
 
 if __name__ == "main":
-    llist = linked_list()
+    llist = LinkedList()
     directions = ['Go straight', 'Turn left', "Turn right", "Stop", "Park"] 
 
     llist.fill_llist(directions)

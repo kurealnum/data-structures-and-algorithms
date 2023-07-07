@@ -7,7 +7,7 @@
 #-----------------------------------------------
 
 #imports
-import linked_lists.singlylinkedlist as ll
+from linked_lists.singlylinkedlist import LinkedList as ll
 from math import inf
 
 class queue():
