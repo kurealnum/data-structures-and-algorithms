@@ -1,4 +1,7 @@
-#NOTE: you don't *have* to use a Llist for stacks (technically speaking)
+#-----------------------------------------------
+#Generic stack data structure. You don't *have*
+#to use a Llist for stacks (technically speaking)
+#-----------------------------------------------
 
 #importing my linked list file
 import linked_lists.singlylinkedlist as ll
@@ -13,15 +16,9 @@ class stack():
         self.stack_array = ll.linked_list()
         self.stack_array.fill_llist(stack)
 
-    #put an item on top of the stack, takes one arg, value. can be int or str
-    def push_stack(self, value):
-        self.stack_array.insert_item_head(ll.node(value))
-
-
-    #pop an item on top of the stack
-    def pop_stack(self):
-        self.stack_array.pop_item(0)
-
+    #------------------
+    #General functions
+    #------------------
 
     #returns the top of the stack
     def top_of_stack(self):
@@ -45,7 +42,20 @@ class stack():
     
     #literally just prints the stack
     def print_stack(self):
-        self.stack_array.printList()
+        self.stack_array.print_list()
+
+    #----------------------
+    #Push and pop functions
+    #----------------------
+
+    #put an item on top of the stack, takes one arg, value. can be int or str
+    def push_stack(self, value):
+        self.stack_array.insert_item_head(ll.node(value))
+
+
+    #pop an item on top of the stack
+    def pop_stack(self):
+        self.stack_array.pop_item(0)
 
 
 

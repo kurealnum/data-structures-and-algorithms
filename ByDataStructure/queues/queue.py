@@ -1,6 +1,10 @@
-#NOTE: you don't *have* to use a Llist for queues (technically speaking)
-#importing my linked list file
-#when you print/interact with the queue, the newest/value closest to the end is the leftmost value
+#-----------------------------------------------
+#Basic queue data structure. You don't *have to*
+#use a linked list, but I think it's a nice
+#demonstration. When you print/interact with the
+#queue, the leftmost value is the one closest to
+#the end.
+#-----------------------------------------------
 
 #imports
 import linked_lists.singlylinkedlist as ll
@@ -20,6 +24,9 @@ class queue():
         if len(input_queue) > 0:
             self.queue_array.fill_llist(input_queue)
 
+    #-----------------
+    #General functions
+    #-----------------
 
     #returns true if the queue is full, false if it isnt
     def isFull(self):
@@ -37,25 +44,7 @@ class queue():
             return True
 
         return False
-
-
-    #raises exception if the queue is full, returns nothing if it works
-    def enqueue(self, value):
-        if self.isFull():
-            raise Exception("Error in queue.enqueue: Queue is full, no room to insert")
-        
-        self.queue_array.insert_item_head(ll.node(value))
-
-
-    #returns false if the queue is empty, nothing if it works
-    def dequeue(self):
-        length = self.queue_array.len_of_llist()
-        if self.isEmpty():
-            return None
-        
-        #-1 is because the length returns the length of a 1 indexed array
-        return self.queue_array.pop_item(length[1]-1)
-         
+    
 
     #returns the object at the front of the queue(the head), return 
     #option for the value defaults to true
@@ -79,7 +68,29 @@ class queue():
 
     #literally just prints the queue
     def print_queue(self):
-        self.queue_array.printList()
+        self.queue_array.print_list()
+
+    #----------------
+    #Enqueue/dequeue
+    #----------------
+
+    #raises exception if the queue is full, returns nothing if it works
+    def enqueue(self, value):
+        if self.isFull():
+            raise Exception("Error in queue.enqueue: Queue is full, no room to insert")
+        
+        self.queue_array.insert_item_head(ll.node(value))
+
+
+    #returns false if the queue is empty, nothing if it works
+    def dequeue(self):
+        length = self.queue_array.len_of_llist()
+        if self.isEmpty():
+            return None
+        
+        #-1 is because the length returns the length of a 1 indexed array
+        return self.queue_array.pop_item(length[1]-1)
+    
 
 
 if __name__ == "__main__":

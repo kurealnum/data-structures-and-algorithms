@@ -25,7 +25,6 @@ class binary_search_tree(binary_tree):
             return root
     
         #we reach here when root is the node to be deleted.
-    
         #if one of the children is empty
         if root.left is None:
             temp = root.right

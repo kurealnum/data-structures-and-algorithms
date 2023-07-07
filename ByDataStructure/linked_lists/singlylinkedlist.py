@@ -1,7 +1,11 @@
+#------------------------------------------------
+#General linked list stuff. Nothing super fancy
+#------------------------------------------------
+
 class node:
 
-    def __init__(self, value) -> None:
-        self.value = value
+    def __init__(self, key) -> None:
+        self.key = key
         self.next = None
 
 
@@ -10,7 +14,11 @@ class linked_list:
     def __init__(self) -> None:
         self.head = None
 
-    def printList(self):
+    #-----------------------------
+    #General functions
+    #-----------------------------
+
+    def print_list(self):
         #start at the head
         temp = self.head
         count = 0
@@ -23,11 +31,11 @@ class linked_list:
         while (temp):
             # If it's not the last node, print the arrow
             if count > 1:
-                print(temp.value, end=' --> ')
+                print(temp.key, end=' --> ')
                 count -= 1
             # If it's the last node, don't print the arrow
             else:
-                print(temp.value)
+                print(temp.key)
                 
             temp = temp.next
 
@@ -45,13 +53,30 @@ class linked_list:
         #we're using "i" because the list could contain anything, just makes it more readable
         for i in list[1:]:
             #define a temporary new node
-            value = node(i)
+            key = node(i)
 
             #set the next variable to the temporary node
-            current.next = value
+            current.next = key
 
             #set the current node to the temporary node
-            current = value
+            current = key
+
+
+    #takes no args, just returns a set (True/False, and the length of the linked list)
+    def len_of_llist(self):
+        #go ahead and check if there's nothing in there
+        if self.head == None:
+            return False, 0
+        
+        #if there is, loop through and count the length
+        count = 0
+        current = self.head
+        
+        while current:
+            count += 1
+            current = current.next 
+
+        return True, count
 
 
     #takes a string as an arg, not a node. returns None if no item is found
@@ -63,8 +88,8 @@ class linked_list:
         current = self.head
 
         while current:
-            #if the values are equivalent 
-            if count == find_val or current.value == find_val:
+            #if the keys are equivalent 
+            if count == find_val or current.key == find_val:
                 return current
             
             current = current.next
@@ -73,6 +98,9 @@ class linked_list:
         else:
             return None
 
+    #-----------------------------
+    #Different types of insertions
+    #-----------------------------
 
     #takes a node as an argument
     def insert_item_head(self, new_head):
@@ -106,30 +134,33 @@ class linked_list:
     #takes a node and a STRING OR INT as args, not a node and a node
     #very similar to insert_item_by_name()
     #if you want to access the head, you NEED to use an iterator
-    def insert_item(self, value, position):
+    def insert_item(self, key, position):
         if self.head is None:
-            self.head = value
+            self.head = key
 
         current = self.head
         count = 1
 
         if position == 0 or position == self.head:
-            value.next = self.head
-            self.head = value
+            key.next = self.head
+            self.head = key
             return
 
         while current:
             #basically just normal python lists, but over engineered 
-            if count == position or current.value == position:
-                value.next = current.next
-                current.next = value
+            if count == position or current.key == position:
+                key.next = current.next
+                current.next = key
                 return
 
             current = current.next
             count += 1
 
-        raise Exception(f"Error in linked_list.insert_item: Couldn't find variable to insert after: {value.value}")
+        raise Exception(f"Error in linked_list.insert_item: Couldn't find variable to insert after: {key.key}")
 
+    #-----------------------------
+    #Removal function(s)
+    #-----------------------------
 
     #takes an int OR a string as an argument (i.e. deletes item either by iterator or name)
     def pop_item(self, position):
@@ -139,14 +170,14 @@ class linked_list:
         
         #just basic iteration, only this time we're using a previous variable to keep track of where we were
         while current:
-            if count == position or current.value == position:
+            if count == position or current.key == position:
                 if previous:
                     previous.next = current.next         
                 else: 
                     self.head = current.next
                     
                 #the removed node
-                return current.value
+                return current.key
            
             previous = current
             current = current.next
@@ -154,29 +185,13 @@ class linked_list:
 
         #if all else fails
         raise Exception(f"Error in linked_list.pop_item: Couldn't find item '{str(position)}' to pop")
-    
 
-    #takes no args, just returns a set (True/False, and the length of the linked list)
-    def len_of_llist(self):
-        #go ahead and check if there's nothing in there
-        if self.head == None:
-            return False, 0
-        
-        #if there is, loop through and count the length
-        count = 0
-        current = self.head
-        
-        while current:
-            count += 1
-            current = current.next 
 
-        return True, count
-
-        
-llist = linked_list()
-directions = ['Go straight', 'Turn left', "Turn right", "Stop", "Park"]
 
 if __name__ == "main":
+    llist = linked_list()
+    directions = ['Go straight', 'Turn left', "Turn right", "Stop", "Park"] 
+
     llist.fill_llist(directions)
     print(llist.len_of_llist())
     llist.printList()
