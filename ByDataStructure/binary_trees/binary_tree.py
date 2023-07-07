@@ -14,7 +14,7 @@ class node:
         
 class binarytree:
 
-    def __init__(self, root) -> None:
+    def __init__(self, root=None) -> None:
         self.root = root
         self.node_count = 1 
 
@@ -30,6 +30,7 @@ class binarytree:
             self.insert(root, node(i))
 
 
+    #takes the root and a new node() object as input
     def insert(self, root, node):
         #if the root is none, just set the node to the root
 
@@ -90,7 +91,7 @@ class binarytree:
         print(level_info)
 
 
-    #function for print_tree()
+    #function for print_tree(), takes the trees root as input
     def collect_level_info(self, root, level_info=defaultdict(list), level=0):
         #traverse the tree in a way that we can count the levels
         if root is not None:
@@ -102,6 +103,7 @@ class binarytree:
         return level_info
 
 
+    #takes the trees root as input
     def bfs_traversal(self, root):
         #0 sets the max queue length to inf
         queue = q.queue([],0)
@@ -126,7 +128,8 @@ class binarytree:
     
 
     #visited contains the order that the nodes were traversed in
-    def pre_order_traversal(self, root, visited):
+    #takes tree root and empty list as input
+    def pre_order_traversal(self, root, visited=[]):
         if root:
             #"traverse" the root
             visited.append(root.data)
@@ -135,8 +138,11 @@ class binarytree:
             #traverse right
             self.pre_order_dfs_traversal(root.right, visited)
 
+        return visited
 
-    def post_order_traversal(self, root, visited):
+
+    #takes tree root and empty list as input
+    def post_order_traversal(self, root, visited=[]):
         if root:
             #traverse left
             self.post_order_traversal(root.left, visited)
@@ -145,8 +151,11 @@ class binarytree:
             #"traverse" the root
             visited.append(root.data)
 
+        return visited
 
-    def in_order_traversal(self, root, visited):
+
+    #takes tree root and empty list as input
+    def in_order_traversal(self, root, visited=[]):
         if root:
             #traverse left
             self.in_order_traversal(root.left,visited)
@@ -155,8 +164,10 @@ class binarytree:
             #traverse right
             self.in_order_traversal(root.right,visited)
 
+        return visited
 
-    #TBD stands for To Be Deleted
+
+    #TBD stands for To Be Deleted, takes tree root and new node *value* as input
     def delete_node(self, root, k):
         #base case
         if root is None:
@@ -185,7 +196,6 @@ class binarytree:
     
         #if both children exist
         else:
-    
             succParent = root
     
             #find successor
@@ -208,13 +218,32 @@ class binarytree:
             #delete Successor and return root
             del succ
             return root
+        
+
+    #takes a sorted array as input. use with caution, will partially 
+    #overwrite current tree if input array is != current # of nodes 
+
+    #IMPORTANT!!! when you run this, set the binary trees root = this 
+    #function (i.e. the return value of this func)
+    def fill_balanced_tree(self, arr):
+        if not arr:
+            return None
+
+        mid = len(arr) // 2
+
+        root = node(arr[mid])
+
+        root.left = self.fill_balanced_tree(arr[:mid])
+        root.right = self.fill_balanced_tree(arr[mid+1:])
+
+        return root
 
 
 
 if __name__ == "__main__":
     #init stuff-----------
     #nums list to fill the tree with
-    nums = [2, 3, 4, 5, 6, 1, 7]
+    nums = [1,2,3,4,5,6,7]
     
 
     mid = int(len(nums) // 2)
@@ -224,15 +253,17 @@ if __name__ == "__main__":
     nums.pop(mid)
 
     bt = binarytree(root)
-
-    bt.fill_tree(root, nums)
+    bt.fill_tree(bt.root,nums)
     #end of init stuff-----------
 
-    bt.print_tree()
-    bt.delete_node(bt.root, 2)
+   
+    
+    nodes_in_order = [1,2,3,4,5,6,7]
+    bt.fill_balanced_tree(nodes_in_order)
+    bt.root = bt.fill_balanced_tree(nodes_in_order)
 
     bt.print_tree()
-
+    print(bt.in_order_traversal(bt.root))
 
 
 
