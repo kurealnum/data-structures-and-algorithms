@@ -23,6 +23,10 @@ class binary_tree:
         self.root = root
         self.node_count = 1 
 
+    #------------------
+    #2 methods of filling trees
+    #------------------
+
     #a completel binary tree is a full binary tree, 
     #but all leaf elements must lean towards the left, 
     #and the last leaf element might not have a right sibling
@@ -33,7 +37,29 @@ class binary_tree:
         #loop through the list
         for i in list:
             self.insert(root, node(i))
+
+
+    #takes a sorted array as input. use with caution, will partially 
+    #overwrite current tree if input array is != current # of nodes 
+
+    #IMPORTANT!!! when you run this, set the binary trees root = this 
+    #function (i.e. the return value of this func)
+    def fill_balanced_tree(self, arr):
+        if not arr:
+            return None
+
+        mid = len(arr) // 2
+
+        root = node(arr[mid])
+
+        root.left = self.fill_balanced_tree(arr[:mid])
+        root.right = self.fill_balanced_tree(arr[mid+1:])
+
+        return root
     
+    #------------------
+    #Printing the tree
+    #------------------
 
     def print_tree(self):
         #nodes seperated into levels, not in order though
@@ -61,6 +87,9 @@ class binary_tree:
                     
         return level_info
 
+    #------------------
+    #Traversals
+    #------------------
 
     #takes the trees root as input
     def bfs_traversal(self, root):
@@ -124,25 +153,8 @@ class binary_tree:
             self.in_order_traversal(root.right,visited)
 
         return visited
-        
-
-    #takes a sorted array as input. use with caution, will partially 
-    #overwrite current tree if input array is != current # of nodes 
-
-    #IMPORTANT!!! when you run this, set the binary trees root = this 
-    #function (i.e. the return value of this func)
-    def fill_balanced_tree(self, arr):
-        if not arr:
-            return None
-
-        mid = len(arr) // 2
-
-        root = node(arr[mid])
-
-        root.left = self.fill_balanced_tree(arr[:mid])
-        root.right = self.fill_balanced_tree(arr[mid+1:])
-
-        return root
+    
+    #------------------
 
 
 
