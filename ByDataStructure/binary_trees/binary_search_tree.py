@@ -17,10 +17,10 @@ class binary_search_tree(binary_tree):
     
         #recursive calls for ancestors of
         #node to be deleted
-        if root.data > k:
+        if root.key > k:
             root.left = self.delete_node(root.left, k)
             return root
-        elif root.data < k:
+        elif root.key < k:
             root.right = self.delete_node(root.right, k)
             return root
     
@@ -54,8 +54,8 @@ class binary_search_tree(binary_tree):
             else:
                 succParent.right = succ.right
     
-            #copy Successor Data to root
-            root.data = succ.data
+            #copy Successor key to root
+            root.key = succ.key
     
             #delete Successor and return root
             del succ
@@ -73,7 +73,7 @@ class binary_search_tree(binary_tree):
         #if it isn't (it won't be most times of course)
         else:
             #if the root is smaller than the node, we go down the right side
-            if root.data < node.data:
+            if root.key < node.key:
                 #if there's nothing in the right node, put the node there
                 if root.right is None:
                     root.right = node
@@ -85,7 +85,7 @@ class binary_search_tree(binary_tree):
                     self.insert(root.right, node)
 
             #if the root is bigger than the node, we go down the left side
-            elif root.data > node.data:
+            elif root.key > node.key:
                 #if there's nothing in the left node, put the node there
                 if root.left is None:
                     root.left = node

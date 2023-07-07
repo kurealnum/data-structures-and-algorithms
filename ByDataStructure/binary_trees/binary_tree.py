@@ -1,6 +1,10 @@
 #----------------------------------------------------------------------
 #This is the base file for binary trees. I wouldn't reccommend using it 
-#barebones, at least use something like binary_search_tree.py
+#barebones, at least use something like binary_search_tree.py. 
+
+#binary_tree is (somewhat obviously) the most basic version of any
+#tree in this folder, thus it's not super useful... it's really just
+#here as a composite pattern (at least I think that's what it's called)
 #----------------------------------------------------------------------
 
 import queues.queue as q
@@ -9,9 +13,9 @@ from collections import defaultdict
 #contains different types of trees, such as a complete binary tree, a perfect binary tree, etc.
 class node:
 
-    #nodes have their data and an optional lower right and left 
-    def __init__(self, data) -> None:
-        self.data = data
+    #nodes have their key and an optional lower right and left 
+    def __init__(self, key) -> None:
+        self.key = key
         self.left = None
         self.right = None
 
@@ -81,7 +85,7 @@ class binary_tree:
         #traverse the tree in a way that we can count the levels
         if root is not None:
             self.collect_level_info(root.left, level_info, level + 1)
-            level_info[level].append(root.data)
+            level_info[level].append(root.key)
             self.collect_level_info(root.right, level_info, level + 1)
             
                     
@@ -91,8 +95,8 @@ class binary_tree:
     #Traversals
     #------------------
 
-    #takes the trees root as input
-    def bfs_traversal(self, root):
+    #technically jsut BFS, takes the trees root as input
+    def level_order_traversal(self, root):
         #0 sets the max queue length to inf
         queue = q.queue([],0)
         queue.enqueue(root)
@@ -102,7 +106,7 @@ class binary_tree:
         while not queue.isEmpty():
             #set current node as last element of q, pop last element of q
             currentNode = queue.dequeue()
-            visited.append(currentNode.data)
+            visited.append(currentNode.key)
 
             #if this node isn't none
             if currentNode.left:
@@ -120,7 +124,7 @@ class binary_tree:
     def pre_order_traversal(self, root, visited=[]):
         if root:
             #"traverse" the root
-            visited.append(root.data)
+            visited.append(root.key)
             #traverse left
             self.pre_order_dfs_traversal(root.left, visited)
             #traverse right
@@ -137,7 +141,7 @@ class binary_tree:
             #traverse right
             self.post_order_traversal(root.right, visited)
             #"traverse" the root
-            visited.append(root.data)
+            visited.append(root.key)
 
         return visited
 
@@ -148,7 +152,7 @@ class binary_tree:
             #traverse left
             self.in_order_traversal(root.left,visited)
             #"traverse" the root
-            visited.append(root.data)
+            visited.append(root.key)
             #traverse right
             self.in_order_traversal(root.right,visited)
 
