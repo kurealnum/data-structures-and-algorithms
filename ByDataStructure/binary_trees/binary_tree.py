@@ -56,15 +56,17 @@ class BinaryTree:
             level_info[level].append(root.key)
             self.collect_level_info(root.right, level_info, level + 1)
             
-                    
         return level_info
 
     #------------------
     #Traversals
     #------------------
 
+    def level_order_traversal(self):
+        return self.level_order_traversal_helper(self.root)
+
     #technically jsut BFS, takes the trees root as input
-    def level_order_traversal(self, root):
+    def level_order_traversal_helper(self, root):
         #0 sets the max queue length to inf
         queue = q.queue([],0)
         queue.enqueue(root)
@@ -87,42 +89,51 @@ class BinaryTree:
         return visited
     
 
+    def pre_order_traversal(self):
+        return self.pre_order_traversal_helper(self.root)
+
     #visited contains the order that the nodes were traversed in
     #takes tree root and empty list as input
-    def pre_order_traversal(self, root, visited=[]):
+    def pre_order_traversal_helper(self, root, visited=[]):
         if root:
             #"traverse" the root
             visited.append(root.key)
             #traverse left
-            self.pre_order_dfs_traversal(root.left, visited)
+            self.pre_order_dfs_traversal_helper(root.left, visited)
             #traverse right
-            self.pre_order_dfs_traversal(root.right, visited)
+            self.pre_order_dfs_traversal_helper(root.right, visited)
 
         return visited
 
 
+    def post_order_traversal(self):
+        return self.post_order_traversal_helper(self.root)
+
     #takes tree root and empty list as input
-    def post_order_traversal(self, root, visited=[]):
+    def post_order_traversal_helper(self, root, visited=[]):
         if root:
             #traverse left
-            self.post_order_traversal(root.left, visited)
+            self.post_order_traversal_helper(root.left, visited)
             #traverse right
-            self.post_order_traversal(root.right, visited)
+            self.post_order_traversal_helper(root.right, visited)
             #"traverse" the root
             visited.append(root.key)
 
         return visited
 
 
+    def in_order_traversal(self):
+        return self.in_order_traversal_helper(self.root)
+
     #takes tree root and empty list as input
-    def in_order_traversal(self, root, visited=[]):
+    def in_order_traversal_helper(self, root, visited=[]):
         if root:
             #traverse left
-            self.in_order_traversal(root.left,visited)
+            self.in_order_traversal_helper(root.left,visited)
             #"traverse" the root
             visited.append(root.key)
             #traverse right
-            self.in_order_traversal(root.right,visited)
+            self.in_order_traversal_helper(root.right,visited)
 
         return visited
     

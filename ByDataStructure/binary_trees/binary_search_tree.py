@@ -9,38 +9,13 @@ class Node(Node):
 #binary search trees are pretty much just binary trees, thus its smooth inheritance
 class BinarySearchTree(BinaryTree):
 
-    #-----------------
-    #Main functions
-    #-----------------
-    #these are here so you don't have to add "bst.root" to the func call, among other things
-
-    def remove(self, target_node):
-        self.remove_node_helper(self.root, target_node)
-
-    
-    def search(self, target_node):
-        return self.search_helper(target_node, self.root)
-    
-    
-    def insert(self, key):
-        self.insert_helper(self.root, key)
-
-
-    def fill_tree(self, list):
-        self.fill_tree_helper(self.root, list)
-
-
-    def fill_balanced_tree(self, arr):
-        self.root = self.fill_balanced_tree_helper(arr)
-        
     #------------------
     #2 methods of filling trees
     #------------------
 
-    #a complete binary tree is a full binary tree, 
-    #but all leaf elements must lean towards the left, 
-    #and the last leaf element might not have a right sibling
-    #(i.e. a complete binary tree doesn't have to be a full binary tree)
+    def fill_tree(self, list):
+        self.fill_tree_helper(self.root, list)
+
     def fill_tree_helper(self, root, list=list):
         self.input_array = list
         
@@ -48,6 +23,9 @@ class BinarySearchTree(BinaryTree):
         for i in list:
             self.insert_helper(root, i)
 
+
+    def fill_balanced_tree(self, arr):
+        self.root = self.fill_balanced_tree_helper(arr)
 
     #takes a sorted array as input. use with caution, will partially 
     #overwrite current tree if input array is != current # of nodes 
@@ -71,6 +49,8 @@ class BinarySearchTree(BinaryTree):
     #Insert/remove/search functions
     #-------------------------------
 
+    def search(self, target_node):
+        return self.search_helper(target_node, self.root)
 
     #make sure to add .key to whatever return value you get, as this just returns the node objec t
     def search_helper(self, target_node, node):
@@ -84,6 +64,9 @@ class BinarySearchTree(BinaryTree):
         else:
             return self.search_helper(target_node, node.left)
 
+
+    def insert(self, key):
+        self.insert_helper(self.root, key)
 
     #takes the root and a new node() object as input
     def insert_helper(self, root, key):
@@ -100,6 +83,9 @@ class BinarySearchTree(BinaryTree):
 
         return root
 
+
+    def remove(self, target_node):
+        self.remove_node_helper(self.root, target_node)
 
     #TBD stands for To Be removed, takes tree root and new node *value* as input
     def remove_node_helper(self, root, node_TBD):
@@ -145,6 +131,6 @@ if __name__ == "__main__":
     nodes_in_order = [1,2,3,4,5,6,7]
     bst.fill_tree(nodes_in_order)
     bst.print_tree()
-    print(bst.in_order_traversal(bst.root))
+    print()
     
 
