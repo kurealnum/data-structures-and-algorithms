@@ -13,10 +13,10 @@ class BinarySearchTree(BinaryTree):
     #2 methods of filling trees
     #------------------
 
-    def fill_tree(self, list) -> None:
+    def fill_tree(self, list: list) -> None:
         self.fill_tree_helper(self.root, list)
 
-    def fill_tree_helper(self, root, list=list):
+    def fill_tree_helper(self, root: Node, list=list):
         self.input_array = list
         
         #loop through the list
@@ -24,7 +24,7 @@ class BinarySearchTree(BinaryTree):
             self.insert_helper(root, i)
 
 
-    def fill_balanced_tree(self, arr) -> None:
+    def fill_balanced_tree(self, arr: list) -> None:
         self.root = self.fill_balanced_tree_helper(arr)
 
     #takes a sorted array as input. use with caution, will partially 
@@ -32,7 +32,7 @@ class BinarySearchTree(BinaryTree):
 
     #IMPORTANT!!! when you run this, set the binary trees root = this 
     #function (i.e. the return value of this func)
-    def fill_balanced_tree_helper(self, arr) -> Node:
+    def fill_balanced_tree_helper(self, arr: list) -> Node:
         if not arr:
             return None
 
@@ -53,7 +53,7 @@ class BinarySearchTree(BinaryTree):
         return self.search_helper(target_node, self.root)
 
     #make sure to add .key to whatever return value you get, as this just returns the node objec t
-    def search_helper(self, target_node, node) -> bool:
+    def search_helper(self, target_node, node: Node) -> bool:
         current = node.key
         if target_node == current:
             return True
@@ -70,7 +70,7 @@ class BinarySearchTree(BinaryTree):
         self.insert_helper(self.root, key)
 
     #takes the root and a new node() object as input
-    def insert_helper(self, root, key) -> Node:
+    def insert_helper(self, root: Node, key) -> Node:
         if root is None:
             return Node(key)
 
@@ -89,7 +89,7 @@ class BinarySearchTree(BinaryTree):
         self.remove_node_helper(self.root, target_node)
 
     #TBD stands for To Be Removed, takes tree root and new node *value* as input
-    def remove_node_helper(self, root, node_TBD) -> Node:
+    def remove_node_helper(self, root: Node, node_TBD) -> Node:
         #finding the node TBD
         if not root:
             return root

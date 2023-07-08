@@ -1,4 +1,4 @@
-def mergeSort(arr):
+def mergeSort(arr: list) -> list:
     arr_len = len(arr)
 
     if arr_len > 1:
@@ -8,8 +8,6 @@ def mergeSort(arr):
         #recursion
         mergeSort(left_arr)
         mergeSort(right_arr)
-
-        print(mergeSort(left_arr),mergeSort(right_arr))
 
         #merge
         i = j = k = 0

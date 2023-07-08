@@ -8,12 +8,13 @@
 
 #imports
 from linked_lists.singly_linked_list import LinkedList as ll
+from linked_lists.singly_linked_list import Node
 from math import inf
 
 class Queue():
 
     #input a max length of 0 to set the max_length to infinity
-    def __init__(self, input_queue, max_length) -> None:
+    def __init__(self, input_queue: list, max_length: NotImplemented) -> None:
         self.max_length = max_length
         if self.max_length == 0:
             self.max_length = inf
@@ -49,26 +50,20 @@ class Queue():
 
     #returns the object at the front of the queue(the head), return 
     #option for the value defaults to true
-    def front(self, value):
+    def front(self) -> Node:
         #return the node with the value if true
-        if value:
-            return self.queue_array.head.value
-        
         return self.queue_array.head
 
 
     #returns the object at the end of the queue, return 
     #option for the value defaults to true
-    def rear(self, value=True):
-        if value:
-            return self.queue_array.find_item(self.queue_array.len_of_llist()[1]-1).value
-        
+    def rear(self) -> Node:        
         #return the node with the value if true
         return self.queue_array.find_item(self.queue_array.len_of_llist()[1]-1)
     
 
     #literally just prints the queue
-    def print_queue(self):
+    def print_queue(self) -> None:
         self.queue_array.print_list()
 
     #----------------
@@ -76,16 +71,14 @@ class Queue():
     #----------------
 
     #raises exception if the queue is full, returns nothing if it works
-    def enqueue(self, value):
+    def enqueue(self, value) -> None:
         if self.isFull():
-            raise Exception("Error in queue.enqueue: Queue is full, no room to insert")
+            return None
         
         self.queue_array.insert_item_head(ll.node(value))
 
 
-    #returns None if the queue is empty, nothing if it works, Nod
-    
-    def dequeue(self):
+    def dequeue(self) -> None | Node:
         length = self.queue_array.len_of_llist()
         if self.isEmpty():
             return None

@@ -103,7 +103,7 @@ class LinkedList:
     #-----------------------------
 
     #takes a node as an argument
-    def insert_item_head(self, new_head) -> None:
+    def insert_item_head(self, new_head: Node) -> None:
         #set the point variable in the old head to the pointer in the new head
         new_head.next = self.head
         #make the old head = the new head
@@ -111,7 +111,7 @@ class LinkedList:
 
 
     #takes node as arg
-    def insert_item_end(self, new_end) -> None:
+    def insert_item_end(self, new_end: Node) -> None:
         #set the current var
         current = self.head
 
@@ -130,11 +130,8 @@ class LinkedList:
             current = current.next
 
 
-    #inserts at the position (the iterator, technically)
-    #takes a node and a STRING OR INT as args, not a node and a node
-    #very similar to insert_item_by_name()
     #if you want to access the head, you NEED to use an iterator
-    def insert_item(self, key, position) -> None:
+    def insert_item(self, key: Node, position) -> None:
         if self.head is None:
             self.head = key
 

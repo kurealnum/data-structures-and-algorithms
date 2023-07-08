@@ -12,7 +12,7 @@ stack = [1, 2, 3, 4, 5]
 
 class Stack():
 
-    def __init__(self, stack) -> None:
+    def __init__(self, stack: list) -> None:
         #filling up the stack
         self.stack_array = ll.linked_list()
         self.stack_array.fill_llist(stack)
