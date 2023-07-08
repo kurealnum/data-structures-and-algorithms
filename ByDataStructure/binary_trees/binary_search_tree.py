@@ -9,6 +9,30 @@ class Node(Node):
 #binary search trees are pretty much just binary trees, thus its smooth inheritance
 class BinarySearchTree(BinaryTree):
 
+    #-----------------
+    #Main functions
+    #-----------------
+    #these are here so you don't have to add "bst.root" to the func call, among other things
+
+    def remove(self, target_node):
+        self.remove_node_helper(self.root, target_node)
+
+    
+    def search(self, target_node):
+        return self.search_helper(target_node, self.root)
+    
+    
+    def insert(self, key):
+        self.insert_helper(self.root, key)
+
+
+    def fill_tree(self, list):
+        self.fill_tree_helper(self.root, list)
+
+
+    def fill_balanced_tree(self, arr):
+        self.root = self.fill_balanced_tree_helper(arr)
+        
     #------------------
     #2 methods of filling trees
     #------------------
@@ -17,12 +41,12 @@ class BinarySearchTree(BinaryTree):
     #but all leaf elements must lean towards the left, 
     #and the last leaf element might not have a right sibling
     #(i.e. a complete binary tree doesn't have to be a full binary tree)
-    def fill_tree(self, root, list=list):
+    def fill_tree_helper(self, root, list=list):
         self.input_array = list
         
         #loop through the list
         for i in list:
-            self.insert(root, Node(i))
+            self.insert_helper(root, i)
 
 
     #takes a sorted array as input. use with caution, will partially 
@@ -30,7 +54,7 @@ class BinarySearchTree(BinaryTree):
 
     #IMPORTANT!!! when you run this, set the binary trees root = this 
     #function (i.e. the return value of this func)
-    def fill_balanced_tree(self, arr):
+    def fill_balanced_tree_helper(self, arr):
         if not arr:
             return None
 
@@ -38,90 +62,79 @@ class BinarySearchTree(BinaryTree):
 
         root = Node(arr[mid])
 
-        root.left = self.fill_balanced_tree(arr[:mid])
-        root.right = self.fill_balanced_tree(arr[mid+1:])
+        root.left = self.fill_balanced_tree_helper(arr[:mid])
+        root.right = self.fill_balanced_tree_helper(arr[mid+1:])
 
         return root
     
     #-------------------------------
-    #Insert/delete/search functions
+    #Insert/remove/search functions
     #-------------------------------
-
-    #this is here so you don't have to add "bst.root" to the func call
-    def search(self, target_value):
-        return self.search_helper(target_value, self.root)
 
 
     #make sure to add .key to whatever return value you get, as this just returns the node objec t
-    def search_helper(self, target_value, node):
+    def search_helper(self, target_node, node):
         current = node.key
-        if target_value == current:
+        if target_node == current:
             return node
         
-        if target_value > current:
-            return self.search_helper(target_value, node.right)
+        if target_node > current:
+            return self.search_helper(target_node, node.right)
 
         else:
-            return self.search_helper(target_value, node.left)
+            return self.search_helper(target_node, node.left)
 
 
     #takes the root and a new node() object as input
-    def insert(self, root, key):
+    def insert_helper(self, root, key):
         if root is None:
             return Node(key)
+
         else:
-            if root.val == key:
+            if root.key == key:
                 return root
-            elif root.val < key:
-                root.right = self.insert(root.right, key)
+            elif root.key < key:
+                root.right = self.insert_helper(root.right, key)
             else:
-                root.left = self.insert(root.left, key)
+                root.left = self.insert_helper(root.left, key)
+
         return root
 
 
-    #TBD stands for To Be Deleted, takes tree root and new node *value* as input
-    def delete_node_helper(self, root):
-        #we reach here when root is the node to be deleted.
-        #if one of the children is empty
-        if root.left is None:
-            temp = root.right
-            del root
-            return temp
-        elif root.right is None:
-            temp = root.left
-            del root
-            return temp
-    
-        #if both children exist
-        else:
-            succParent = root
-    
-            #find successor
-            succ = root.right
-            while succ.left is not None:
-                succParent = succ
-                succ = succ.left
-    
-            #Delete successor. Since successor is always left child of its parent 
-            #we can safely make successor's right right child as left of its parent. If 
-            #there is no succ, then assign succ.right to succParent.right
-            if succParent != root:
-                succParent.left = succ.right
-            else:
-                succParent.right = succ.right
-    
-            #copy Successor key to root
-            root.key = succ.key
-    
-            #delete Successor and return root
-            del succ
+    #TBD stands for To Be removed, takes tree root and new node *value* as input
+    def remove_node_helper(self, root, node_TBD):
+        #finding the node TBD
+        if not root:
             return root
         
+        if node_TBD > root.key:
+            #assign it incase it changes
+            root.right = self.remove_node_helper(root.right, node_TBD)
+            return root
 
-    def delete(self, target_node):
-        node = self.search(target_node)
-        self.delete_node_helper(node)
+        if node_TBD < root.key:
+            #assign it incase it changes
+            root.left = self.remove_node_helper(root.left, node_TBD)
+            return root
 
+        #deletion process
+        else:
+            #Case 1
+            if not root.left:
+                return root.right
+            
+            elif not root.right:
+                return root.left
+            
+            #min from the right subtree, also case 2 and 3
+            cur = root.right
+            while cur.left:
+                cur = cur.left
+
+            root.key = cur.key
+            #assign it to the right subtree in case it ends up changing
+            root.right = self.remove_node_helper(root.right, root.key)
+            return root
 
 
 
@@ -130,10 +143,8 @@ if __name__ == "__main__":
     bst = BinarySearchTree(root)
     
     nodes_in_order = [1,2,3,4,5,6,7]
-    bst.root = bst.fill_balanced_tree(nodes_in_order)
-
+    bst.fill_tree(nodes_in_order)
     bst.print_tree()
-    bst.delete(3)
-    print(bst.search(3))
-    bst.print_tree()
+    print(bst.in_order_traversal(bst.root))
+    
 

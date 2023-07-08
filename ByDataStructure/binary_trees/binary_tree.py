@@ -28,7 +28,6 @@ class BinaryTree:
 
     def __init__(self, root=None) -> None:
         self.root = root
-        self.node_count = 1 
     
     #------------------
     #Printing the tree
