@@ -189,10 +189,4 @@ class LinkedList:
 
 
 if __name__ == "main":
-    llist = LinkedList()
-    directions = ['Go straight', 'Turn left', "Turn right", "Stop", "Park"] 
-
-    llist.fill_llist(directions)
-    print(llist.len_of_llist())
-    llist.printList()
-
+    pass

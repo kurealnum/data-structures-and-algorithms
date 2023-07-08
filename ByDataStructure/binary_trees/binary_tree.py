@@ -29,40 +29,6 @@ class BinaryTree:
     def __init__(self, root=None) -> None:
         self.root = root
         self.node_count = 1 
-
-    #------------------
-    #2 methods of filling trees
-    #------------------
-
-    #a complete binary tree is a full binary tree, 
-    #but all leaf elements must lean towards the left, 
-    #and the last leaf element might not have a right sibling
-    #(i.e. a complete binary tree doesn't have to be a full binary tree)
-    def fill_tree(self, root, list=list):
-        self.input_array = list
-        
-        #loop through the list
-        for i in list:
-            self.insert(root, Node(i))
-
-
-    #takes a sorted array as input. use with caution, will partially 
-    #overwrite current tree if input array is != current # of nodes 
-
-    #IMPORTANT!!! when you run this, set the binary trees root = this 
-    #function (i.e. the return value of this func)
-    def fill_balanced_tree(self, arr):
-        if not arr:
-            return None
-
-        mid = len(arr) // 2
-
-        root = Node(arr[mid])
-
-        root.left = self.fill_balanced_tree(arr[:mid])
-        root.right = self.fill_balanced_tree(arr[mid+1:])
-
-        return root
     
     #------------------
     #Printing the tree
@@ -165,7 +131,8 @@ class BinaryTree:
 
 
 
-
+if __name__ == "__main__":
+    pass
 
 
 

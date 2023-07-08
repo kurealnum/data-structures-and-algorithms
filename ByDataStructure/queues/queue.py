@@ -10,8 +10,9 @@
 from linked_lists.singlylinkedlist import LinkedList as ll
 from math import inf
 
-class queue():
+class Queue():
 
+    #input a max length of 0 to set the max_length to infinity
     def __init__(self, input_queue, max_length) -> None:
         self.max_length = max_length
         if self.max_length == 0:
@@ -94,13 +95,6 @@ class queue():
 
 
 if __name__ == "__main__":
-    #input a 0 to set the maxlength of the queue to infinity
-    MAX_LENGTH = 0
-    input_queue = [1, 2, 3, 4, 5]
-
-    queue_1 = queue(input_queue, MAX_LENGTH)
-    queue_1.print_queue()
-    print(queue_1.dequeue())
-    queue_1.print_queue()
+    pass
 
 

@@ -8,72 +8,79 @@ class Node(Node):
 
 #binary search trees are pretty much just binary trees, thus its smooth inheritance
 class BinarySearchTree(BinaryTree):
+
+    #------------------
+    #2 methods of filling trees
+    #------------------
+
+    #a complete binary tree is a full binary tree, 
+    #but all leaf elements must lean towards the left, 
+    #and the last leaf element might not have a right sibling
+    #(i.e. a complete binary tree doesn't have to be a full binary tree)
+    def fill_tree(self, root, list=list):
+        self.input_array = list
+        
+        #loop through the list
+        for i in list:
+            self.insert(root, Node(i))
+
+
+    #takes a sorted array as input. use with caution, will partially 
+    #overwrite current tree if input array is != current # of nodes 
+
+    #IMPORTANT!!! when you run this, set the binary trees root = this 
+    #function (i.e. the return value of this func)
+    def fill_balanced_tree(self, arr):
+        if not arr:
+            return None
+
+        mid = len(arr) // 2
+
+        root = Node(arr[mid])
+
+        root.left = self.fill_balanced_tree(arr[:mid])
+        root.right = self.fill_balanced_tree(arr[mid+1:])
+
+        return root
     
-    #-----------------------
-    #Insert/delete functions
-    #-----------------------
+    #-------------------------------
+    #Insert/delete/search functions
+    #-------------------------------
+
+    #this is here so you don't have to add "bst.root" to the func call
+    def search(self, target_value):
+        return self.search_helper(target_value, self.root)
+
+
+    #make sure to add .key to whatever return value you get, as this just returns the node objec t
+    def search_helper(self, target_value, node):
+        current = node.key
+        if target_value == current:
+            return node
+        
+        if target_value > current:
+            return self.search_helper(target_value, node.right)
+
+        else:
+            return self.search_helper(target_value, node.left)
+
 
     #takes the root and a new node() object as input
-    def insert(self, root, node):
-        #if the root is none, just set the node to the root
-
-        #maybe check the actual root, not the arg
-        if self.root is None:
-            self.root = node
-
-        #if it isn't (it won't be most times of course)
+    def insert(self, root, key):
+        if root is None:
+            return Node(key)
         else:
-            #if the root is smaller than the node, we go down the right side
-            if root.key < node.key:
-                #if there's nothing in the right node, put the node there
-                if root.right is None:
-                    root.right = node
-                    self.node_count += 1
-                
-                #if there is, go ahead and recursively call the function again,
-                #this time having the root set as the right node
-                else: 
-                    self.insert(root.right, node)
-
-            #if the root is bigger than the node, we go down the left side
-            elif root.key > node.key:
-                #if there's nothing in the left node, put the node there
-                if root.left is None:
-                    root.left = node
-                    self.node_count += 1
-
-                #if there is, recursively call the function again with the "root"
-                #argument set as the left node that we're currently on
-                else: 
-                    self.insert(root.left, node)
-
-            #if the root is equal to the current node
+            if root.val == key:
+                return root
+            elif root.val < key:
+                root.right = self.insert(root.right, key)
             else:
-                #worst comes to worst, we just put it in the left node
-                if root.left is None:
-                    root.left = node
-                    self.node_count += 1
-
-                #if there is something in the left node, go check that out
-                else:
-                    self.insert(root.left, node)
+                root.left = self.insert(root.left, key)
+        return root
 
 
     #TBD stands for To Be Deleted, takes tree root and new node *value* as input
-    def delete_node(self, root, k):
-        #base case
-        if root is None:
-            return root
-
-        #recursive calls for ancestors of
-        #node to be deleted
-        if root.key > k:
-            root.left = self.delete_node(root.left, k)
-            return root
-        elif root.key < k:
-            root.right = self.delete_node(root.right, k)
-            return root
-    
+    def delete_node_helper(self, root):
         #we reach here when root is the node to be deleted.
         #if one of the children is empty
         if root.left is None:
@@ -109,31 +116,24 @@ class BinarySearchTree(BinaryTree):
             #delete Successor and return root
             del succ
             return root
+        
+
+    def delete(self, target_node):
+        node = self.search(target_node)
+        self.delete_node_helper(node)
+
+
 
 
 if __name__ == "__main__":
-    #init stuff-----------
-    #nums list to fill the tree with
-    nums = [1,2,3,4,5,6,7]
-    
-
-    mid = int(len(nums) // 2)
-
-    #setting the root (which is the middle)
-    root = Node(nums[mid])
-    nums.pop(mid)
-
-    bt = BinaryTree(root)
-    bt.fill_tree(bt.root,nums)
-    #end of init stuff-----------
-
-   
+    root = Node(4)
+    bst = BinarySearchTree(root)
     
     nodes_in_order = [1,2,3,4,5,6,7]
-    bt.fill_balanced_tree(nodes_in_order)
-    bt.root = bt.fill_balanced_tree(nodes_in_order)
+    bst.root = bst.fill_balanced_tree(nodes_in_order)
 
-    bt.print_tree()
-    print(bt.in_order_traversal(bt.root))  
-
+    bst.print_tree()
+    bst.delete(3)
+    print(bst.search(3))
+    bst.print_tree()
 
