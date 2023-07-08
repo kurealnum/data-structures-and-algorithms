@@ -4,7 +4,8 @@
 #-----------------------------------------------
 
 #importing my linked list file
-from linked_lists.singlylinkedlist import LinkedList as ll
+from linked_lists.singly_linked_list import LinkedList as ll
+from linked_lists.singly_linked_list import Node
 
 #just to start something off
 stack = [1, 2, 3, 4, 5]
@@ -21,12 +22,12 @@ class Stack():
     #------------------
 
     #returns the top of the stack
-    def top_of_stack(self):
-        return self.stack_array.head.value
+    def top_of_stack(self) -> Node:
+        return self.stack_array.head
 
 
     #checks if the stack is empty, returns true if it is, false if it isn't
-    def is_stack_empty(self):
+    def is_stack_empty(self) -> bool:
         data = self.stack_array.len_of_llist()
         if data[0] == False:
             return True
@@ -35,13 +36,13 @@ class Stack():
 
 
     #returns the size of the stack
-    def size_of_stack(self):
+    def size_of_stack(self) -> int:
         data = self.stack_array.len_of_llist()
         return data[1]
     
     
     #literally just prints the stack
-    def print_stack(self):
+    def print_stack(self) -> None:
         self.stack_array.print_list()
 
     #----------------------
@@ -49,13 +50,13 @@ class Stack():
     #----------------------
 
     #put an item on top of the stack, takes one arg, value. can be int or str
-    def push_stack(self, value):
+    def push_stack(self, value) -> None:
         self.stack_array.insert_item_head(ll.node(value))
 
 
     #pop an item on top of the stack
-    def pop_stack(self):
-        self.stack_array.pop_item(0)
+    def pop_stack(self) -> Node:
+        return self.stack_array.pop_item(0)
 
 
 

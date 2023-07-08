@@ -2,7 +2,7 @@
 #General linked list stuff. Nothing super fancy
 #------------------------------------------------
 
-class node:
+class Node:
 
     def __init__(self, key) -> None:
         self.key = key
@@ -18,7 +18,7 @@ class LinkedList:
     #General functions
     #-----------------------------
 
-    def print_list(self):
+    def print_list(self) -> None:
         #start at the head
         temp = self.head
         count = 0
@@ -41,10 +41,10 @@ class LinkedList:
 
 
     #populate the list with whatever list you want
-    def fill_llist(self, list=list):
+    def fill_llist(self, list=list) -> None:
         #putting the directions into the linked list
         if self.head == None:
-            head = node(list[0])
+            head = Node(list[0])
             self.head = head
             
         current = head
@@ -53,7 +53,7 @@ class LinkedList:
         #we're using "i" because the list could contain anything, just makes it more readable
         for i in list[1:]:
             #define a temporary new node
-            key = node(i)
+            key = Node(i)
 
             #set the next variable to the temporary node
             current.next = key
@@ -63,7 +63,7 @@ class LinkedList:
 
 
     #takes no args, just returns a set (True/False, and the length of the linked list)
-    def len_of_llist(self):
+    def len_of_llist(self) -> tuple:
         #go ahead and check if there's nothing in there
         if self.head == None:
             return False, 0
@@ -80,7 +80,7 @@ class LinkedList:
 
 
     #takes a string as an arg, not a node. returns None if no item is found
-    def find_item(self, find_val):
+    def find_item(self, find_val) -> Node | None:
 
         count = 0
 
@@ -103,7 +103,7 @@ class LinkedList:
     #-----------------------------
 
     #takes a node as an argument
-    def insert_item_head(self, new_head):
+    def insert_item_head(self, new_head) -> None:
         #set the point variable in the old head to the pointer in the new head
         new_head.next = self.head
         #make the old head = the new head
@@ -111,7 +111,7 @@ class LinkedList:
 
 
     #takes node as arg
-    def insert_item_end(self, new_end):
+    def insert_item_end(self, new_end) -> None:
         #set the current var
         current = self.head
 
@@ -134,7 +134,7 @@ class LinkedList:
     #takes a node and a STRING OR INT as args, not a node and a node
     #very similar to insert_item_by_name()
     #if you want to access the head, you NEED to use an iterator
-    def insert_item(self, key, position):
+    def insert_item(self, key, position) -> None:
         if self.head is None:
             self.head = key
 
@@ -156,14 +156,14 @@ class LinkedList:
             current = current.next
             count += 1
 
-        raise Exception(f"Error in linked_list.insert_item: Couldn't find variable to insert after: {key.key}")
+        return
 
     #-----------------------------
     #Removal function(s)
     #-----------------------------
 
     #takes an int OR a string as an argument (i.e. deletes item either by iterator or name)
-    def pop_item(self, position):
+    def pop_item(self, position) -> None | Node:
         count = 0
         current = self.head
         previous = None
@@ -177,14 +177,14 @@ class LinkedList:
                     self.head = current.next
                     
                 #the removed node
-                return current.key
+                return current
            
             previous = current
             current = current.next
             count += 1
 
         #if all else fails
-        raise Exception(f"Error in linked_list.pop_item: Couldn't find item '{str(position)}' to pop")
+        return
 
 
 

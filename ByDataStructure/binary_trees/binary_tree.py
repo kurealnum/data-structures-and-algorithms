@@ -33,7 +33,7 @@ class BinaryTree:
     #Printing the tree
     #------------------
 
-    def print_tree(self):
+    def print_tree(self) -> None:
         #nodes seperated into levels, not in order though
         level_info = defaultdict(list)
         level_info = self.collect_level_info(self.root, level_info, 0)
@@ -49,7 +49,7 @@ class BinaryTree:
 
 
     #function for print_tree(), takes the trees root as input
-    def collect_level_info(self, root, level_info=defaultdict(list), level=0):
+    def collect_level_info(self, root, level_info=defaultdict(list), level=0) -> dict:
         #traverse the tree in a way that we can count the levels
         if root is not None:
             self.collect_level_info(root.left, level_info, level + 1)
@@ -62,11 +62,11 @@ class BinaryTree:
     #Traversals
     #------------------
 
-    def level_order_traversal(self):
+    def level_order_traversal(self) -> list:
         return self.level_order_traversal_helper(self.root)
 
     #technically jsut BFS, takes the trees root as input
-    def level_order_traversal_helper(self, root):
+    def level_order_traversal_helper(self, root) -> list:
         #0 sets the max queue length to inf
         queue = q.queue([],0)
         queue.enqueue(root)
@@ -89,12 +89,12 @@ class BinaryTree:
         return visited
     
 
-    def pre_order_traversal(self):
+    def pre_order_traversal(self) -> list:
         return self.pre_order_traversal_helper(self.root)
 
     #visited contains the order that the nodes were traversed in
     #takes tree root and empty list as input
-    def pre_order_traversal_helper(self, root, visited=[]):
+    def pre_order_traversal_helper(self, root, visited=[]) -> list:
         if root:
             #"traverse" the root
             visited.append(root.key)
@@ -106,11 +106,11 @@ class BinaryTree:
         return visited
 
 
-    def post_order_traversal(self):
+    def post_order_traversal(self) -> list:
         return self.post_order_traversal_helper(self.root)
 
     #takes tree root and empty list as input
-    def post_order_traversal_helper(self, root, visited=[]):
+    def post_order_traversal_helper(self, root, visited=[]) -> list:
         if root:
             #traverse left
             self.post_order_traversal_helper(root.left, visited)
@@ -122,11 +122,11 @@ class BinaryTree:
         return visited
 
 
-    def in_order_traversal(self):
+    def in_order_traversal(self) -> list:
         return self.in_order_traversal_helper(self.root)
 
     #takes tree root and empty list as input
-    def in_order_traversal_helper(self, root, visited=[]):
+    def in_order_traversal_helper(self, root, visited=[]) -> list:
         if root:
             #traverse left
             self.in_order_traversal_helper(root.left,visited)

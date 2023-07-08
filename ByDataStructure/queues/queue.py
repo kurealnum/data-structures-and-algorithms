@@ -7,7 +7,7 @@
 #-----------------------------------------------
 
 #imports
-from linked_lists.singlylinkedlist import LinkedList as ll
+from linked_lists.singly_linked_list import LinkedList as ll
 from math import inf
 
 class Queue():
@@ -30,7 +30,7 @@ class Queue():
     #-----------------
 
     #returns true if the queue is full, false if it isnt
-    def isFull(self):
+    def isFull(self) -> bool:
         length = self.queue_array.len_of_llist()
         if length[1] + 1 > self.max_length:
             return True
@@ -39,7 +39,7 @@ class Queue():
 
 
     #returns true if the queue is empty, false if it isnt
-    def isEmpty(self):
+    def isEmpty(self) -> bool:
         length = self.queue_array.len_of_llist()
         if length[1] == 0:
             return True
@@ -83,7 +83,8 @@ class Queue():
         self.queue_array.insert_item_head(ll.node(value))
 
 
-    #returns false if the queue is empty, nothing if it works
+    #returns None if the queue is empty, nothing if it works, Nod
+    
     def dequeue(self):
         length = self.queue_array.len_of_llist()
         if self.isEmpty():
