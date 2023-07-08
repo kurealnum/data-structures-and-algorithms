@@ -130,6 +130,7 @@ if __name__ == "__main__":
     
     nodes_in_order = [1,2,3,4,5,6,7]
     bst.fill_tree(nodes_in_order)
+    bst.fill_balanced_tree(nodes_in_order)
     bst.print_tree()
     print()
     

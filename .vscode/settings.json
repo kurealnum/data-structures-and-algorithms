@@ -1,6 +1,0 @@
-{
-    "python.analysis.extraPaths": [
-        "./ByDataStructure/linked_lists"
-    ],
-    "python.analysis.typeCheckingMode": "off"
-}
