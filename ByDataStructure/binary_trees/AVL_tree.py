@@ -5,6 +5,6 @@ class Node(Node):
 
 
 
-class BalancedBinaryTree(BinaryTree):
+class AVL_Tree(BinaryTree):
     pass
 
