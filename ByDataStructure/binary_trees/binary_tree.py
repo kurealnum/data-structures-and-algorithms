@@ -145,7 +145,11 @@ class BinaryTree:
     #Functions for general information about the tree
     #------------------------------------------------
 
-    def find_depth(self, root: Node) -> int:
+    #depth of the TREE, not a certain node
+    def find_tree_depth(self) -> int:
+        return self.find_tree_depth_helper(self.root)
+
+    def find_tree_depth_helper(self, root: Node) -> int:
         #init the depth to 0
         d = 0
         #go straight down the left side
@@ -155,6 +159,28 @@ class BinaryTree:
 
         return d
     
+    #height of the TREE, not a certain node
+    def find_tree_height(self) -> int:
+        return self.find_tree_height_helper(self.root)
+
+    def find_tree_height_helper(self, root: Node) -> int:
+        #if no tree
+        if not root:
+            return 0
+        
+        #if we're at the bottom
+        if not root.left and not root.right:
+            return 0
+        
+        #recursive calls
+        leftHeight = self.find_tree_height_helper(root.left)
+        rightHeight = self.find_tree_height_helper(root.right)
+        if leftHeight > rightHeight:
+            return leftHeight + 1
+        
+        else:
+            return rightHeight + 1
+
     #-----------------------------------------------------------
     #Functions for state of tree (complete, full, balanced, etc) 
     #-----------------------------------------------------------
@@ -195,7 +221,7 @@ class BinaryTree:
 
         return True
         '''
-        d = self.find_depth(self.root)
+        d = self.find_tree_depth()
         return self.is_perfect_binary_tree_helper(self.root, d)
 
     
