@@ -141,7 +141,19 @@ class BinaryTree:
         
         return len(visited) == total_node_count
 
+    #------------------------------------------------
+    #Functions for general information about the tree
+    #------------------------------------------------
 
+    def find_depth(self, root: Node) -> int:
+        #init the depth to 0
+        d = 0
+        #go straight down the left side
+        while root != None:
+            d += 1
+            root = root.left
+
+        return d
     
     #-----------------------------------------------------------
     #Functions for state of tree (complete, full, balanced, etc) 
@@ -169,6 +181,9 @@ class BinaryTree:
     
 
     def is_perfect_binary_tree(self) -> bool:
+        '''
+        this was the function that i wrote with no help, just keeping it around :)
+
         level_order_nodes = self.collect_level_info(self.root)
 
         count = 2
@@ -179,6 +194,26 @@ class BinaryTree:
             count *= 2
 
         return True
+        '''
+        d = self.find_depth(self.root)
+        return self.is_perfect_binary_tree_helper(self.root, d)
+
+    
+    def is_perfect_binary_tree_helper(self, root:Node, d, level=0) -> bool:
+        #empty tree is perfect
+        if not root:
+            return True
+        
+        #if leaf node, then its depth must be = all other leaves depth
+        if not root.left and not root.right:
+            return (d == level + 1) 
+        
+        #if internal node and one child is empty
+        if not root.left or not root.right:
+            return False
+        
+        #left and right subtrees must be perfect
+        return self.is_perfect_binary_tree_helper(root.left, d, level+1) and self.is_perfect_binary_tree_helper(root.right, d, level+1) 
 
 
 
