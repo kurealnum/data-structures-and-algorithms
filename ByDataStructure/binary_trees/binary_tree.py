@@ -39,12 +39,7 @@ class BinaryTree:
         level_info = self.collect_level_info(self.root, level_info, 0)
 
         #sorting the dict for ease of access or whatever you call it
-        level_info_keys = list(level_info.keys())
-        level_info_keys.sort()
-        level_info = {i: level_info[i] for i in level_info_keys}
-
-        #nodes in order from top to bottom, left to right (BFS). 
-        #keys = level, level index from 0
+        level_info = dict(level_info)
         print(level_info)
 
 
@@ -52,8 +47,8 @@ class BinaryTree:
     def collect_level_info(self, root: Node, level_info=defaultdict(list), level=0) -> dict:
         #traverse the tree in a way that we can count the levels
         if root is not None:
-            self.collect_level_info(root.left, level_info, level + 1)
             level_info[level].append(root.key)
+            self.collect_level_info(root.left, level_info, level + 1)
             self.collect_level_info(root.right, level_info, level + 1)
             
         return level_info
@@ -171,6 +166,14 @@ class BinaryTree:
             return self.is_full_binary_tree_helper(root.left) and self.is_full_binary_tree_helper(root.left)
 
         return False
+    
+
+    def is_perfect_binary_tree(self):
+        pass
+
+
+    def is_perfect_binary_tree_helper(self):
+        pass
 
 
 
