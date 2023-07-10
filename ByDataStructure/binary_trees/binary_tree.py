@@ -38,7 +38,7 @@ class BinaryTree:
         level_info = defaultdict(list)
         level_info = self.collect_level_info(self.root, level_info, 0)
 
-        #sorting the dict for ease of access or whatever you call it
+        #removing that annoying little "defaultdict" thingy
         level_info = dict(level_info)
         print(level_info)
 
@@ -147,7 +147,7 @@ class BinaryTree:
     #Functions for state of tree (complete, full, balanced, etc) 
     #-----------------------------------------------------------
 
-    def is_full_binary_tree(self):
+    def is_full_binary_tree(self) -> bool:
         res = self.is_full_binary_tree_helper(self.root)
         if type(res) == list:
             return False
@@ -155,7 +155,7 @@ class BinaryTree:
         return res
     
 
-    def is_full_binary_tree_helper(self, root: Node):
+    def is_full_binary_tree_helper(self, root: Node) -> bool:
         if not root:
             return True
 
@@ -168,12 +168,17 @@ class BinaryTree:
         return False
     
 
-    def is_perfect_binary_tree(self):
-        pass
+    def is_perfect_binary_tree(self) -> bool:
+        level_order_nodes = self.collect_level_info(self.root)
 
+        count = 2
+        for k in level_order_nodes.keys():
+            if len(level_order_nodes[k])*2 != count:
+                return False
+            
+            count *= 2
 
-    def is_perfect_binary_tree_helper(self):
-        pass
+        return True
 
 
 
