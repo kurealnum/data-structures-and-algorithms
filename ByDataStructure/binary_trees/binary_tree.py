@@ -58,10 +58,10 @@ class BinaryTree:
     #------------------
 
     def level_order_traversal(self) -> list:
-        return self.level_order_traversal_helper(self.root)
+        return self.__level_order_traversal_helper(self.root)
 
     #technically jsut BFS, takes the trees root as input
-    def level_order_traversal_helper(self, root: Node) -> list:
+    def __level_order_traversal_helper(self, root: Node) -> list:
         #0 sets the max queue length to inf
         queue = q.queue([],0)
         queue.enqueue(root)
@@ -85,11 +85,11 @@ class BinaryTree:
     
 
     def pre_order_traversal(self) -> list:
-        return self.pre_order_traversal_helper(self.root)
+        return self.__pre_order_traversal_helper(self.root)
 
     #visited contains the order that the nodes were traversed in
     #takes tree root and empty list as input
-    def pre_order_traversal_helper(self, root: Node, visited=[]) -> list:
+    def __pre_order_traversal_helper(self, root: Node, visited=[]) -> list:
         if root:
             #"traverse" the root
             visited.append(root.key)
@@ -102,15 +102,15 @@ class BinaryTree:
 
 
     def post_order_traversal(self) -> list:
-        return self.post_order_traversal_helper(self.root)
+        return self.__post_order_traversal_helper(self.root)
 
     #takes tree root and empty list as input
-    def post_order_traversal_helper(self, root: Node, visited=[]) -> list:
+    def __post_order_traversal_helper(self, root: Node, visited=[]) -> list:
         if root:
             #traverse left
-            self.post_order_traversal_helper(root.left, visited)
+            self.__post_order_traversal_helper(root.left, visited)
             #traverse right
-            self.post_order_traversal_helper(root.right, visited)
+            self.__post_order_traversal_helper(root.right, visited)
             #"traverse" the root
             visited.append(root.key)
 
@@ -118,10 +118,10 @@ class BinaryTree:
 
 
     def in_order_traversal(self) -> list:
-        return self.in_order_traversal_helper(self.root)
+        return self.__in_order_traversal_helper(self.root)
 
     #takes tree root and empty list as input
-    def in_order_traversal_helper(self, root: Node, visited=[], check_for_full=False, total_node_count=0) -> list | bool:
+    def __in_order_traversal_helper(self, root: Node, visited=[], check_for_full=False, total_node_count=0) -> list | bool:
         if check_for_full:
             if root.left and not root.right:
                 total_node_count -= 1
@@ -131,11 +131,11 @@ class BinaryTree:
 
         if root:
             #traverse left
-            self.in_order_traversal_helper(root.left, visited, check_for_full, total_node_count)
+            self.__in_order_traversal_helper(root.left, visited, check_for_full, total_node_count)
             #"traverse" the root
             visited.append(root.key)
             #traverse right
-            self.in_order_traversal_helper(root.right, visited, check_for_full, total_node_count)
+            self.__in_order_traversal_helper(root.right, visited, check_for_full, total_node_count)
 
         total_node_count += 1
         
@@ -147,9 +147,9 @@ class BinaryTree:
 
     #depth of the TREE, not a certain node
     def find_tree_depth(self) -> int:
-        return self.find_tree_depth_helper(self.root)
+        return self.__find_tree_depth_helper(self.root)
 
-    def find_tree_depth_helper(self, root: Node) -> int:
+    def __find_tree_depth_helper(self, root: Node) -> int:
         #init the depth to 0
         d = 0
         #go straight down the left side
@@ -162,9 +162,9 @@ class BinaryTree:
 
     #height of the TREE, not a certain node
     def find_tree_height(self) -> int:
-        return self.find_tree_height_helper(self.root)
+        return self.__find_tree_height_helper(self.root)
 
-    def find_tree_height_helper(self, root: Node) -> int:
+    def __find_tree_height_helper(self, root: Node) -> int:
         #if no tree
         if not root:
             return 0
@@ -174,8 +174,8 @@ class BinaryTree:
             return 0
         
         #recursive calls
-        leftHeight = self.find_tree_height_helper(root.left)
-        rightHeight = self.find_tree_height_helper(root.right)
+        leftHeight = self.__find_tree_height_helper(root.left)
+        rightHeight = self.__find_tree_height_helper(root.right)
         if leftHeight > rightHeight:
             return leftHeight + 1
         
@@ -184,27 +184,27 @@ class BinaryTree:
         
 
     def get_total_nodes(self) -> int:
-        return self.get_total_nodes_helper(self.root)
+        return self.__get_total_nodes_helper(self.root)
 
-    def get_total_nodes_helper(self, root: Node, count=0) -> int:
+    def __get_total_nodes_helper(self, root: Node, count=0) -> int:
         if not root:
             return 0
         
-        return 1 + self.get_total_nodes_helper(root.left, count) + self.get_total_nodes_helper(root.right, count)
+        return 1 + self.__get_total_nodes_helper(root.left, count) + self.__get_total_nodes_helper(root.right, count)
 
     #-----------------------------------------------------------
     #Functions for state of tree (complete, full, balanced, etc) 
     #-----------------------------------------------------------
 
     def is_full_binary_tree(self) -> bool:
-        res = self.is_full_binary_tree_helper(self.root)
+        res = self.__is_full_binary_tree_helper(self.root)
         if type(res) == list:
             return False
         
         return res
     
     #keep in mind we're trying to find a node with only one child (to return false)
-    def is_full_binary_tree_helper(self, root: Node) -> bool:
+    def __is_full_binary_tree_helper(self, root: Node) -> bool:
         #if no root, its a full tree
         if not root:
             return True
@@ -215,7 +215,7 @@ class BinaryTree:
 
         #recurse on both sides
         if root.left and root.right:
-            return self.is_full_binary_tree_helper(root.left) and self.is_full_binary_tree_helper(root.left)
+            return self.__is_full_binary_tree_helper(root.left) and self.__is_full_binary_tree_helper(root.left)
 
         return False
     
@@ -236,9 +236,9 @@ class BinaryTree:
         return True
         '''
         d = self.find_tree_depth()
-        return self.is_perfect_binary_tree_helper(self.root, d)
+        return self.__is_perfect_binary_tree_helper(self.root, d)
 
-    def is_perfect_binary_tree_helper(self, root:Node, d, level=0) -> bool:
+    def __is_perfect_binary_tree_helper(self, root:Node, d, level=0) -> bool:
         #empty tree is perfect
         if not root:
             return True
@@ -252,15 +252,15 @@ class BinaryTree:
             return False
         
         #left and right subtrees must be perfect
-        return self.is_perfect_binary_tree_helper(root.left, d, level+1) and self.is_perfect_binary_tree_helper(root.right, d, level+1) 
+        return self.__is_perfect_binary_tree_helper(root.left, d, level+1) and self.__is_perfect_binary_tree_helper(root.right, d, level+1) 
     
 
     def is_complete_binary_tree(self) -> bool:
         n = self.get_total_nodes()
-        return self.is_complete_binary_tree_helper(self.root, n)
+        return self.__is_complete_binary_tree_helper(self.root, n)
 
     #n is for total nodes
-    def is_complete_binary_tree_helper(self, root:Node, n, index=0) -> bool:
+    def __is_complete_binary_tree_helper(self, root:Node, n, index=0) -> bool:
         #emptry tree is complete
         if not root:
             return  True
@@ -268,7 +268,7 @@ class BinaryTree:
         if index >= n:
             return False
         
-        return self.is_complete_binary_tree_helper(root.left, n, 2*index+1) and self.is_complete_binary_tree_helper(root.right, n, 2*index+2)
+        return self.__is_complete_binary_tree_helper(root.left, n, 2*index+1) and self.__is_complete_binary_tree_helper(root.right, n, 2*index+2)
 
 
 if __name__ == "__main__":
