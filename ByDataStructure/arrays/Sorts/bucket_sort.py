@@ -11,7 +11,6 @@ def bucket_sort(arr) -> None:
 
     #sort all elements in buckets
     for j in range(len(arr)):
-        #change this later on
         insertion_sort(buckets[j])
 
     #put sorted elements back in array
