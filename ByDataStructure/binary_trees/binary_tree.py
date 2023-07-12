@@ -159,6 +159,7 @@ class BinaryTree:
 
         return d
     
+
     #height of the TREE, not a certain node
     def find_tree_height(self) -> int:
         return self.find_tree_height_helper(self.root)
@@ -192,14 +193,17 @@ class BinaryTree:
         
         return res
     
-
+    #keep in mind we're trying to find a node with only one child (to return false)
     def is_full_binary_tree_helper(self, root: Node) -> bool:
+        #if no root, its a full tree
         if not root:
             return True
 
+        #if no nodes on both sides
         if not root.left and not root.right:
             return True
 
+        #recurse on both sides
         if root.left and root.right:
             return self.is_full_binary_tree_helper(root.left) and self.is_full_binary_tree_helper(root.left)
 
@@ -224,7 +228,6 @@ class BinaryTree:
         d = self.find_tree_depth()
         return self.is_perfect_binary_tree_helper(self.root, d)
 
-    
     def is_perfect_binary_tree_helper(self, root:Node, d, level=0) -> bool:
         #empty tree is perfect
         if not root:
