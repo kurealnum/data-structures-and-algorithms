@@ -132,7 +132,6 @@ if __name__ == "__main__":
     bst.fill_tree(nodes_in_order)
     bst.print_tree()
     print(bst.is_complete_binary_tree())
-    bst.
     
 
     
