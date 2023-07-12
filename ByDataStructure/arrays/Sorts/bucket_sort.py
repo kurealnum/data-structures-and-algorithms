@@ -1,4 +1,6 @@
-def bucket_sort(arr):
+from insertion_sort import insertion_sort
+
+def bucket_sort(arr) -> None:
     #create the list of buckets
     buckets = [[] for i in arr]
     arr_len = len(arr)
@@ -10,7 +12,7 @@ def bucket_sort(arr):
     #sort all elements in buckets
     for j in range(len(arr)):
         #change this later on
-        buckets[j] = sorted(buckets[j])
+        insertion_sort(buckets[j])
 
     #put sorted elements back in array
     k = 0
@@ -20,6 +22,7 @@ def bucket_sort(arr):
             k+=1
 
 
-arr = [0.32,0.22,0.66,0.25,0.31,0.44,0.37]
-bucket_sort(arr)
-print(arr)
+if __name__ == "__main__":
+    arr = [0.32,0.22,0.66,0.25,0.31,0.44,0.37]
+    bucket_sort(arr)
+    print(arr)
