@@ -181,6 +181,16 @@ class BinaryTree:
         
         else:
             return rightHeight + 1
+        
+
+    def get_total_nodes(self) -> int:
+        return self.get_total_nodes_helper(self.root)
+
+    def get_total_nodes_helper(self, root: Node, count=0) -> int:
+        if not root:
+            return 0
+        
+        return 1 + self.get_total_nodes_helper(root.left, count) + self.get_total_nodes_helper(root.right, count)
 
     #-----------------------------------------------------------
     #Functions for state of tree (complete, full, balanced, etc) 
@@ -243,7 +253,22 @@ class BinaryTree:
         
         #left and right subtrees must be perfect
         return self.is_perfect_binary_tree_helper(root.left, d, level+1) and self.is_perfect_binary_tree_helper(root.right, d, level+1) 
+    
 
+    def is_complete_binary_tree(self) -> bool:
+        n = self.get_total_nodes()
+        return self.is_complete_binary_tree_helper(self.root, n)
+
+    #n is for total nodes
+    def is_complete_binary_tree_helper(self, root:Node, n, index=0) -> bool:
+        #emptry tree is complete
+        if not root:
+            return  True
+        
+        if index >= n:
+            return False
+        
+        return self.is_complete_binary_tree_helper(root.left, n, 2*index+1) and self.is_complete_binary_tree_helper(root.right, n, 2*index+2)
 
 
 if __name__ == "__main__":
