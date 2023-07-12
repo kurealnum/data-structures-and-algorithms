@@ -35,7 +35,7 @@ def mergeSort(arr: list) -> list:
         return arr
 
 
-arr = [2,5,3,6,1,4,8,7]
-
-arr = mergeSort(arr)
-print(arr)
+if __name__ == "__main__":
+    arr = [2,5,3,6,1,4,8,7]
+    arr = mergeSort(arr)
+    print(arr)

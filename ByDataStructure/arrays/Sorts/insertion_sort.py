@@ -1,9 +1,3 @@
-def swap(arr, i, j):
-    temp = arr[i]
-    arr[i] = arr[j]
-    arr[j] = temp
-
-
 def insertion_sort(arr):
     for i in range(1, len(arr)):
         
@@ -17,7 +11,8 @@ def insertion_sort(arr):
         arr[j + 1] = key 
 
 
-arr = [3,5,2,1,4,7,6]
-insertion_sort(arr)
-print(arr)
+if __name__ == "__main__":
+    arr = [3,5,2,1,4,7,6]
+    insertion_sort(arr)
+    print(arr)
         
