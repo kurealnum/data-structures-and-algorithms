@@ -1,6 +1,6 @@
 from insertion_sort import insertion_sort
 
-def bucket_sort(arr) -> None:
+def bucket_sort(arr: list) -> None:
     #create the list of buckets
     buckets = [[] for i in arr]
     arr_len = len(arr)
