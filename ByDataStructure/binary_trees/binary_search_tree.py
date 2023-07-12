@@ -16,11 +16,10 @@ class BinarySearchTree(BinaryTree):
     def fill_tree(self, list: list) -> None:
         self.__level_order_traversal_helper(self.root, list)
 
-    def __level_order_traversal_helper(self, root: Node, list=list):
-        self.input_array = list
+    def __level_order_traversal_helper(self, root: Node, input_array=list):
         
         #loop through the list
-        for i in list:
+        for i in input_array:
             self.__insert_helper(root, i)
 
 
@@ -133,6 +132,7 @@ if __name__ == "__main__":
     bst.fill_tree(nodes_in_order)
     bst.print_tree()
     print(bst.is_complete_binary_tree())
+    bst.
     
 
     
