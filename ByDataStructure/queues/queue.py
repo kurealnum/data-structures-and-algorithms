@@ -14,9 +14,9 @@ from math import inf
 class Queue():
 
     #input a max length of 0 to set the max_length to infinity
-    def __init__(self, input_queue: list, max_length: NotImplemented) -> None:
+    def __init__(self, input_queue: list, max_length: int) -> None:
         self.max_length = max_length
-        if self.max_length == 0:
+        if self.max_length == None:
             self.max_length = inf
 
         #creating the queue
